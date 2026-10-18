@@ -3,7 +3,7 @@ DISTVERSION=	29.0.2
 CATEGORIES=	net python
 PKGNAMEPREFIX=	openstack-
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	OpenStack Identity service (Keystone)
 WWW=		https://docs.openstack.org/keystone/
 

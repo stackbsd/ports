@@ -3,7 +3,7 @@ DISTVERSION=	25.7.3
 CATEGORIES=	net python
 PKGNAMEPREFIX=	openstack-
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	OpenStack Dashboard (Horizon)
 WWW=		https://docs.openstack.org/horizon/
 

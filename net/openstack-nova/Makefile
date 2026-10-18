@@ -3,7 +3,7 @@ DISTVERSION=	33.0.2
 CATEGORIES=	net python
 PKGNAMEPREFIX=	openstack-
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	OpenStack Compute service (Nova)
 WWW=		https://docs.openstack.org/nova/
 

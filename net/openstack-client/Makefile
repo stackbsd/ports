@@ -3,7 +3,7 @@ DISTVERSION=	9.0.0
 CATEGORIES=	net python
 PKGNAMEPREFIX=	openstack-
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	OpenStack Client
 WWW=		https://docs.openstack.org/python-openstackclient/
 

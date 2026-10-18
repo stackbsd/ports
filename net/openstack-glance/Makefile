@@ -3,7 +3,7 @@ DISTVERSION=	32.0.0
 CATEGORIES=	net python
 PKGNAMEPREFIX=	openstack-
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	OpenStack Image service (Glance)
 WWW=		https://docs.openstack.org/glance/
 

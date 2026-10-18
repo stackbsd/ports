@@ -4,7 +4,7 @@ CATEGORIES=	net python
 MASTER_SITES=	PYPI
 DISTNAME=	${PORTNAME:S/-/_/g}-${DISTVERSION}
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	Bhyve compute driver for OpenStack Nova
 WWW=		https://github.com/stackbsd/nova-bhyve
 

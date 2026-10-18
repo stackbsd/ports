@@ -2,7 +2,7 @@ PORTNAME=	runtime
 CATEGORIES=	net python
 PKGNAMEPREFIX=	openstack-
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	Shared Python runtime virtual environment for the OpenStack services
 WWW=		https://github.com/stackbsd
 

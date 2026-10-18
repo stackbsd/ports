@@ -3,7 +3,7 @@ DISTVERSION=	28.0.1
 CATEGORIES=	net python
 PKGNAMEPREFIX=	openstack-
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	OpenStack Networking service (Neutron)
 WWW=		https://docs.openstack.org/neutron/
 

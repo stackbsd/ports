@@ -4,7 +4,7 @@ CATEGORIES=	net python
 MASTER_SITES=	PYPI
 DISTNAME=	${PORTNAME:S/-/_/g}-${DISTVERSION}
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	ZFS volume driver for OpenStack Cinder
 WWW=		https://github.com/stackbsd/cinder-zfs-driver
 

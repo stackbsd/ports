@@ -4,7 +4,7 @@ CATEGORIES=	net python
 MASTER_SITES=	PYPI
 DISTNAME=	${PORTNAME:S/-/_/g}-${DISTVERSION}
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	FreeBSD iSCSI connector for OpenStack os-brick
 WWW=		https://github.com/stackbsd/os-brick-freebsd
 

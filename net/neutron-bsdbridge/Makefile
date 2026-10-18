@@ -4,7 +4,7 @@ CATEGORIES=	net python
 MASTER_SITES=	PYPI
 DISTNAME=	${PORTNAME:S/-/_/g}-${DISTVERSION}
 
-MAINTAINER=	5124298+joshiggins@users.noreply.github.com
+MAINTAINER=	josh@joshh.info
 COMMENT=	if_bridge and pf based ML2 driver and agents for OpenStack Neutron
 WWW=		https://github.com/stackbsd/neutron-bsdbridge
 
