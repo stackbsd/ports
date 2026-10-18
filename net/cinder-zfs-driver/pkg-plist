@@ -1,0 +1,13 @@
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder/zfs/__init__.py
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder/zfs/__pycache__/__init__%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder/zfs/__pycache__/privsep%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder/zfs/privsep.py
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver-0.9.1.dist-info/METADATA
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver-0.9.1.dist-info/RECORD
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver-0.9.1.dist-info/WHEEL
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver/__init__.py
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver/__pycache__/__init__%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver/__pycache__/ctl%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver/__pycache__/driver%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver/ctl.py
+%%VENV%%/%%PYTHON_SITELIBDIR%%/cinder_zfs_driver/driver.py

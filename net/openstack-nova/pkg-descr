@@ -1,0 +1,3 @@
+OpenStack Compute (Nova) provisions and manages virtual machine instances.  It
+offers a REST API for launching, resizing and deleting servers, a scheduler that
+places them on compute hosts, and a compute service that drives the hypervisor.

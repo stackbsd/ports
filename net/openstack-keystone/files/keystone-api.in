@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# PROVIDE: keystone_api
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=keystone_api
+rcvar=keystone_api_enable
+desc="Keystone API server"
+
+load_rc_config $name
+
+: ${keystone_api_enable:="NO"}
+: ${keystone_api_runas:="keystone"}
+: ${keystone_api_pidfile:="/var/run/${name}.pid"}
+: ${keystone_api_logfile:="/var/log/${name}.log"}
+
+pidfile="${keystone_api_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${keystone_api_runas} \
+	-P ${pidfile} -o ${keystone_api_logfile} \
+	%%PREFIX%%/bin/keystone-api"
+
+run_rc_command "$1"

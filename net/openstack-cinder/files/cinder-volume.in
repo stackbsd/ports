@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# PROVIDE: cinder_volume
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=cinder_volume
+rcvar=cinder_volume_enable
+desc="Cinder volume service"
+
+load_rc_config $name
+
+: ${cinder_volume_enable:="NO"}
+: ${cinder_volume_runas:="cinder"}
+: ${cinder_volume_statedir:="/var/db/cinder"}
+: ${cinder_volume_pidfile:="/var/run/${name}.pid"}
+: ${cinder_volume_logfile:="/var/log/${name}.log"}
+
+pidfile="${cinder_volume_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${cinder_volume_runas} \
+	-P ${pidfile} -o ${cinder_volume_logfile} \
+	%%PREFIX%%/bin/cinder-volume"
+
+start_precmd="cinder_volume_precmd"
+
+cinder_volume_precmd()
+{
+	/usr/bin/install -d -o "${cinder_volume_runas}" \
+		-g "${cinder_volume_runas}" -m 0750 \
+		"${cinder_volume_statedir}" \
+		"${cinder_volume_statedir}/tmp" \
+		"${cinder_volume_statedir}/conversion"
+}
+
+run_rc_command "$1"

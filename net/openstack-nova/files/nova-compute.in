@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# PROVIDE: nova_compute
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=nova_compute
+rcvar=nova_compute_enable
+desc="Nova compute service"
+
+load_rc_config $name
+
+: ${nova_compute_enable:="NO"}
+: ${nova_compute_runas:="nova"}
+: ${nova_compute_statedir:="/var/db/nova"}
+: ${nova_compute_pidfile:="/var/run/${name}.pid"}
+: ${nova_compute_logfile:="/var/log/${name}.log"}
+
+pidfile="${nova_compute_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${nova_compute_runas} \
+	-P ${pidfile} -o ${nova_compute_logfile} \
+	%%PREFIX%%/bin/nova-compute"
+
+start_precmd="nova_compute_precmd"
+
+nova_compute_precmd()
+{
+	/usr/bin/install -d -o "${nova_compute_runas}" \
+		-g "${nova_compute_runas}" -m 0750 \
+		"${nova_compute_statedir}" \
+		"${nova_compute_statedir}/tmp" \
+		"${nova_compute_statedir}/instances"
+}
+
+run_rc_command "$1"

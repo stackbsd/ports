@@ -1,0 +1,9 @@
+#!/bin/sh
+export GUNICORN_CMD_ARGS="-c python:gunicorn_env_cfg"
+export GUNICORN_WSGI_APP="nova.wsgi.osapi_compute:application"
+export GUNICORN_CONTROL_SOCKET_DISABLE=True
+export OS_NOVA_CONFIG_DIR="%%PREFIX%%/etc/nova/"
+set -a
+. %%PREFIX%%/etc/nova/nova-wsgi.conf
+set +a
+exec %%VENV%%/bin/gunicorn

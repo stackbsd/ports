@@ -1,0 +1,51 @@
+[DEFAULT]
+core_plugin = ml2
+service_plugins = router,port_forwarding
+auth_strategy = keystone
+state_path = /var/db/neutron
+rpc_workers = 1
+
+# transport_url = rabbit://username:password@localhost:5672/
+
+[oslo_concurrency]
+lock_path = /var/db/neutron/tmp
+
+[database]
+# connection = mysql+pymysql://neutron:NEUTRON_DBPASS@localhost/neutron
+# connection = mysql+pymysql://neutron@/neutron?unix_socket=/var/run/mysql/mysql.sock
+
+[keystone_authtoken]
+# www_authenticate_uri = http://localhost:5000/v3
+# auth_url = http://localhost:5000/v3
+# memcached_servers = localhost:11211
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = neutron
+# password = NEUTRON_PASS
+
+[privsep]
+helper_command = sudo %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/neutron/neutron.conf
+
+[nova]
+# auth_url = http://localhost:5000/v3
+# send_service_user_token = True
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = neutron
+# password = NEUTRON_PASS
+# region_name = RegionOne
+
+[placement]
+# auth_url = http://localhost:5000/v3
+# send_service_user_token = True
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = neutron
+# password = NEUTRON_PASS
+# region_name = RegionOne

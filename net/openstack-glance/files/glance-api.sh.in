@@ -1,0 +1,9 @@
+#!/bin/sh
+export GUNICORN_CMD_ARGS="-c python:gunicorn_env_cfg"
+export GUNICORN_WSGI_APP="glance.wsgi.api:application"
+export GUNICORN_CONTROL_SOCKET_DISABLE=True
+export OS_GLANCE_CONFIG_DIR="%%PREFIX%%/etc/glance/"
+set -a
+. %%PREFIX%%/etc/glance/glance-wsgi.conf
+set +a
+exec %%VENV%%/bin/gunicorn

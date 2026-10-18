@@ -1,0 +1,7 @@
+%%VENV%%/%%PYTHON_SITELIBDIR%%/os_brick_freebsd-0.9.0.dist-info/METADATA
+%%VENV%%/%%PYTHON_SITELIBDIR%%/os_brick_freebsd-0.9.0.dist-info/RECORD
+%%VENV%%/%%PYTHON_SITELIBDIR%%/os_brick_freebsd-0.9.0.dist-info/WHEEL
+%%VENV%%/%%PYTHON_SITELIBDIR%%/os_brick_freebsd/__init__.py
+%%VENV%%/%%PYTHON_SITELIBDIR%%/os_brick_freebsd/__pycache__/__init__%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/os_brick_freebsd/__pycache__/iscsi%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/os_brick_freebsd/iscsi.py

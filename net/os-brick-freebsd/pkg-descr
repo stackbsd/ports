@@ -1,0 +1,2 @@
+os-brick-freebsd is an os-brick iSCSI connector that attaches OpenStack
+Cinder volumes with the FreeBSD iSCSI initiator.

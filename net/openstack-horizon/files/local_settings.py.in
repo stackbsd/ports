@@ -1,0 +1,51 @@
+"""Horizon settings for this host."""
+
+from horizon.utils import secret_key
+
+DEBUG = False
+ALLOWED_HOSTS = ["*"]
+SECRET_KEY = secret_key.generate_or_read_from_file(
+    "/var/db/horizon/.secret_key_store")
+
+OPENSTACK_HOST = "127.0.0.1"
+OPENSTACK_KEYSTONE_URL = "http://%s:5000/v3" % OPENSTACK_HOST
+TIME_ZONE = "UTC"
+
+# the tree collected at build time, to be served at STATIC_URL by the proxy
+STATIC_ROOT = "%%PREFIX%%/www/horizon/static"
+COMPRESS_OFFLINE = True
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    },
+}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+#         "LOCATION": "127.0.0.1:11211",
+#     },
+# }
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {"format": "%(levelname)s %(name)s %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "console",
+        },
+    },
+    "loggers": {
+        "django": {"handlers": ["console"], "level": "INFO"},
+        "horizon": {"handlers": ["console"], "level": "INFO"},
+        "openstack_auth": {"handlers": ["console"], "level": "INFO"},
+        "openstack_dashboard": {"handlers": ["console"], "level": "INFO"},
+    },
+}

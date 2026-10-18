@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# PROVIDE: nova_novncproxy
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=nova_novncproxy
+rcvar=nova_novncproxy_enable
+desc="Nova noVNC console proxy"
+
+load_rc_config $name
+
+: ${nova_novncproxy_enable:="NO"}
+: ${nova_novncproxy_runas:="nova"}
+: ${nova_novncproxy_web:="%%PREFIX%%/libexec/novnc"}
+: ${nova_novncproxy_pidfile:="/var/run/${name}.pid"}
+: ${nova_novncproxy_logfile:="/var/log/${name}.log"}
+
+nova_novncproxy_env="EVENTLET_HUB=poll ${nova_novncproxy_env}"
+
+pidfile="${nova_novncproxy_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${nova_novncproxy_runas} \
+	-P ${pidfile} -o ${nova_novncproxy_logfile} \
+	%%PREFIX%%/bin/nova-novncproxy --web ${nova_novncproxy_web}"
+
+run_rc_command "$1"

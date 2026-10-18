@@ -1,0 +1,18 @@
+[DEFAULT]
+
+[database]
+# connection = mysql+pymysql://keystone:KEYSTONE_DBPASS@localhost/keystone
+# connection = mysql+pymysql://keystone@/keystone?unix_socket=/var/run/mysql/mysql.sock
+
+[token]
+provider = fernet
+
+[fernet_tokens]
+key_repository = %%PREFIX%%/etc/keystone/fernet-keys
+
+[fernet_receipts]
+key_repository = %%PREFIX%%/etc/keystone/fernet-keys
+
+[credential]
+provider = fernet
+key_repository = %%PREFIX%%/etc/keystone/credential-keys

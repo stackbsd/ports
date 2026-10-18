@@ -1,0 +1,104 @@
+# Wheelhouse engine shared by the openstack-* ports, included after the
+# port's own variables.  Makefile.distfiles is the port's generated set.
+
+.include "${.CURDIR}/Makefile.distfiles"
+
+USES+=		python:3.12
+USE_PYTHON=	noflavors
+
+# the shared venv and the wheels this port lays into it
+VENV=		${PREFIX}/libexec/openstack
+WHEELDIR=	${WRKDIR}/wheels
+BUILDENV=	${WRKDIR}/buildenv
+
+# the patched sdists extract as siblings straight into WRKDIR
+WRKSRC=		${WRKDIR}
+
+BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}calver>0:devel/py-calver@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}cython>0:lang/cython@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}flit-core>0:devel/py-flit-core@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}hatch-fancy-pypi-readme>0:devel/py-hatch-fancy-pypi-readme@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}hatch-vcs>0:devel/py-hatch-vcs@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}hatchling>0:devel/py-hatchling@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}installer>0:devel/py-installer@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}meson-python>0:devel/meson-python@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pbr>0:devel/py-pbr@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pdm-backend>0:devel/py-pdm-backend@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pip>0:devel/py-pip@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}poetry-core>0:devel/py-poetry-core@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pybind11>0:devel/py-pybind11@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}scikit-build-core>0:devel/py-scikit-build-core@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}setuptools>0:devel/py-setuptools@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}uv-build>0:devel/py-uv-build@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}wheel>0:devel/py-wheel@${PY_FLAVOR}
+
+.if !empty(CRATES_DISTFILES)
+USES+=		ssl
+
+# cffi must be importable as cryptography's cargo build script generates its bindings with it
+BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}cffi>0:devel/py-cffi@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}maturin>0:devel/py-maturin@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}setuptools-rust>0:devel/py-setuptools-rust@${PY_FLAVOR} \
+		cargo:lang/rust
+
+CARGO_VENDOR_DIR=	${WRKDIR}/cargo-crates
+CARGO_HOME_DIR=		${WRKDIR}/cargo-home
+CARGO_ENV=		CARGO_HOME=${CARGO_HOME_DIR} \
+			CARGO_NET_OFFLINE=true \
+			OPENSSL_INCLUDE_DIR=${OPENSSLINC} \
+			OPENSSL_LIB_DIR=${OPENSSLLIB}
+
+# unpack the crates into a cargo directory source that replaces crates-io
+post-extract:
+	@${MKDIR} ${CARGO_VENDOR_DIR} ${CARGO_HOME_DIR}
+.for f in ${CRATES_DISTFILES}
+	@${TAR} -xf ${_DISTDIR}/${f} -C ${CARGO_VENDOR_DIR}
+	@${PRINTF} '{"package":"%s","files":{}}' \
+		$$(${SHA256} -q ${_DISTDIR}/${f}) \
+		> ${CARGO_VENDOR_DIR}/${f:T:R}/.cargo-checksum.json
+.endfor
+	@${ECHO_CMD} '[source.vendored]' > ${CARGO_HOME_DIR}/config.toml
+	@${ECHO_CMD} 'directory = "${CARGO_VENDOR_DIR}"' >> ${CARGO_HOME_DIR}/config.toml
+	@${ECHO_CMD} '[source.crates-io]' >> ${CARGO_HOME_DIR}/config.toml
+	@${ECHO_CMD} 'replace-with = "vendored"' >> ${CARGO_HOME_DIR}/config.toml
+.endif
+
+# a .orig backup left beside a patched source would be swept into its wheel
+post-patch:
+	@${FIND} ${WRKDIR} -name '*.orig' -delete
+
+do-build:
+# a hybrid build env: system site-packages plus the locked bootstrap and toolchain
+	${PYTHON_CMD} -m venv --system-site-packages ${BUILDENV}
+.for f in ${BOOTSTRAP_DISTFILES}
+	${TAR} xf ${_DISTDIR}/${f} -C ${WRKDIR}
+	${SETENV} PYTHONPATH=${WRKDIR}/${f:R:R} ${BUILDENV}/bin/pip install \
+		--no-index --no-deps --no-build-isolation ${WRKDIR}/${f:R:R}
+.endfor
+.for f in ${TOOLCHAIN_DISTFILES}
+	${BUILDENV}/bin/pip install --no-index --no-deps --no-build-isolation \
+		${_DISTDIR}/${f}
+.endfor
+# wheel the closure, patched sdists from their extracted tree
+.for f in ${CLOSURE_DISTFILES}
+.  if !empty(PATCHED_DISTFILES:M${f})
+	${SETENV} ${CARGO_ENV} ${BUILDENV}/bin/pip wheel --no-deps \
+		--no-build-isolation --no-index -w ${WHEELDIR} ${WRKDIR}/${f:R:R}
+.  else
+	${SETENV} ${CARGO_ENV} ${BUILDENV}/bin/pip wheel --no-deps \
+		--no-build-isolation --no-index -w ${WHEELDIR} ${_DISTDIR}/${f}
+.  endif
+.endfor
+
+# fix up whatever this port staged under the venv
+post-stage:
+	@cd ${STAGEDIR}${VENV}/lib && ${GREP} -rl "^#!.*python" --include="*.py" \
+		--include="*.py-tpl" . | ${XARGS} ${REINPLACE_CMD} \
+		-e "1s|^#!.*python.*|#!${VENV}/bin/python${PYTHON_VER}|"
+	@if [ -d ${STAGEDIR}${VENV}/bin ]; then \
+		${FIND} ${STAGEDIR}${VENV}/bin -type f -exec ${REINPLACE_CMD} \
+			-e "s|${STAGEDIR}||" {} + ; \
+	fi
+	${FIND} ${STAGEDIR}${VENV} \( -name "*.bak" -o -name direct_url.json \
+		-o -name "*.pyc" \) -delete
+	${PYTHON_CMD} -m compileall -q -j0 -s ${STAGEDIR} -p / ${STAGEDIR}${VENV}/lib

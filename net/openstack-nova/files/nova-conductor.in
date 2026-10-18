@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# PROVIDE: nova_conductor
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=nova_conductor
+rcvar=nova_conductor_enable
+desc="Nova conductor"
+
+load_rc_config $name
+
+: ${nova_conductor_enable:="NO"}
+: ${nova_conductor_runas:="nova"}
+: ${nova_conductor_statedir:="/var/db/nova"}
+: ${nova_conductor_pidfile:="/var/run/${name}.pid"}
+: ${nova_conductor_logfile:="/var/log/${name}.log"}
+
+pidfile="${nova_conductor_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${nova_conductor_runas} \
+	-P ${pidfile} -o ${nova_conductor_logfile} \
+	%%PREFIX%%/bin/nova-conductor"
+
+start_precmd="nova_conductor_precmd"
+
+nova_conductor_precmd()
+{
+	/usr/bin/install -d -o "${nova_conductor_runas}" \
+		-g "${nova_conductor_runas}" -m 0750 \
+		"${nova_conductor_statedir}" \
+		"${nova_conductor_statedir}/tmp"
+}
+
+run_rc_command "$1"

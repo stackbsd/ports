@@ -1,0 +1,10 @@
+[
+{ type: install
+  message: <<EOM
+The connector needs the iSCSI initiator running:
+
+    sysrc iscsid_enable=YES
+    service iscsid start
+EOM
+}
+]

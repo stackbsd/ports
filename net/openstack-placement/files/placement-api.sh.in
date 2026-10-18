@@ -1,0 +1,9 @@
+#!/bin/sh
+export GUNICORN_CMD_ARGS="-c python:gunicorn_env_cfg"
+export GUNICORN_WSGI_APP="placement.wsgi.api:application"
+export GUNICORN_CONTROL_SOCKET_DISABLE=True
+export OS_PLACEMENT_CONFIG_DIR="%%PREFIX%%/etc/placement/"
+set -a
+. %%PREFIX%%/etc/placement/placement-wsgi.conf
+set +a
+exec %%VENV%%/bin/gunicorn

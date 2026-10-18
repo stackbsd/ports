@@ -1,0 +1,2 @@
+OpenStack Block Storage (Cinder) provides persistent block storage volumes for
+Nova compute and other cloud services.

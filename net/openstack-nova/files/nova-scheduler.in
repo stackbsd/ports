@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# PROVIDE: nova_scheduler
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=nova_scheduler
+rcvar=nova_scheduler_enable
+desc="Nova scheduler"
+
+load_rc_config $name
+
+: ${nova_scheduler_enable:="NO"}
+: ${nova_scheduler_runas:="nova"}
+: ${nova_scheduler_statedir:="/var/db/nova"}
+: ${nova_scheduler_pidfile:="/var/run/${name}.pid"}
+: ${nova_scheduler_logfile:="/var/log/${name}.log"}
+
+pidfile="${nova_scheduler_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${nova_scheduler_runas} \
+	-P ${pidfile} -o ${nova_scheduler_logfile} \
+	%%PREFIX%%/bin/nova-scheduler"
+
+start_precmd="nova_scheduler_precmd"
+
+nova_scheduler_precmd()
+{
+	/usr/bin/install -d -o "${nova_scheduler_runas}" \
+		-g "${nova_scheduler_runas}" -m 0750 \
+		"${nova_scheduler_statedir}" \
+		"${nova_scheduler_statedir}/tmp"
+}
+
+run_rc_command "$1"

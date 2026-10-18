@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# PROVIDE: neutron_rpc_server
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=neutron_rpc_server
+rcvar=neutron_rpc_server_enable
+desc="Neutron RPC server"
+
+load_rc_config $name
+
+: ${neutron_rpc_server_enable:="NO"}
+: ${neutron_rpc_server_runas:="neutron"}
+: ${neutron_rpc_server_statedir:="/var/db/neutron"}
+: ${neutron_rpc_server_pidfile:="/var/run/${name}.pid"}
+: ${neutron_rpc_server_logfile:="/var/log/${name}.log"}
+
+pidfile="${neutron_rpc_server_pidfile}"
+command="/usr/sbin/daemon"
+
+command_args="-c -r -H -t ${name} -u ${neutron_rpc_server_runas} \
+	-P ${pidfile} -o ${neutron_rpc_server_logfile} \
+	%%PREFIX%%/bin/neutron-rpc-server \
+	--config-file %%PREFIX%%/etc/neutron/plugins/ml2/ml2_conf.ini"
+
+start_precmd="neutron_rpc_server_precmd"
+
+neutron_rpc_server_precmd()
+{
+	/usr/bin/install -d -o "${neutron_rpc_server_runas}" \
+		-g "${neutron_rpc_server_runas}" -m 0750 \
+		"${neutron_rpc_server_statedir}" \
+		"${neutron_rpc_server_statedir}/tmp"
+}
+
+run_rc_command "$1"

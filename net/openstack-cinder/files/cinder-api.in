@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# PROVIDE: cinder_api
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=cinder_api
+rcvar=cinder_api_enable
+desc="Cinder API server"
+
+load_rc_config $name
+
+: ${cinder_api_enable:="NO"}
+: ${cinder_api_runas:="cinder"}
+: ${cinder_api_statedir:="/var/db/cinder"}
+: ${cinder_api_pidfile:="/var/run/${name}.pid"}
+: ${cinder_api_logfile:="/var/log/${name}.log"}
+
+pidfile="${cinder_api_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${cinder_api_runas} \
+	-P ${pidfile} -o ${cinder_api_logfile} \
+	%%PREFIX%%/bin/cinder-api"
+
+start_precmd="cinder_api_precmd"
+
+cinder_api_precmd()
+{
+	/usr/bin/install -d -o "${cinder_api_runas}" -g "${cinder_api_runas}" \
+		-m 0750 \
+		"${cinder_api_statedir}" \
+		"${cinder_api_statedir}/tmp"
+}
+
+run_rc_command "$1"

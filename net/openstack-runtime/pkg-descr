@@ -1,0 +1,2 @@
+The shared Python runtime for the OpenStack ports. This package installs a
+virtual environment under libexec/openstack.

@@ -1,0 +1,15 @@
+[bsdbridge]
+# neutron physical_network -> FreeBSD trunk interface (vlan/flat only)
+#physical_interface_mappings = physnet1:ix0
+
+# directory for the agents' durable state
+#state_path = /var/db/neutron-bsdbridge
+
+# seconds between full syncs
+#sync_interval = 30
+
+# devd seqpacket pipe watched for IFNET events; empty disables (L2 agent)
+#devd_pipe = /var/run/devd.seqpacket.pipe
+
+# dnsmasq binary the dhcp agent launches in each network jail
+#dnsmasq_path = %%PREFIX%%/sbin/dnsmasq

@@ -1,0 +1,95 @@
+[DEFAULT]
+state_path = /var/db/nova
+instances_path = /var/db/nova/instances
+rootwrap_config = %%PREFIX%%/etc/nova/rootwrap.conf
+force_config_drive = True
+mkisofs_cmd = xorrisofs
+allow_resize_to_same_host = True
+vif_plugging_is_fatal = False
+
+# compute_driver = bhyve.driver.BhyveDriver
+# transport_url = rabbit://username:password@localhost:5672/
+# my_ip = 127.0.0.1
+
+[database]
+# connection = mysql+pymysql://nova:NOVA_DBPASS@localhost/nova
+# connection = mysql+pymysql://nova@/nova?unix_socket=/var/run/mysql/mysql.sock
+
+[api_database]
+# connection = mysql+pymysql://nova:NOVA_DBPASS@localhost/nova_api
+# connection = mysql+pymysql://nova@/nova_api?unix_socket=/var/run/mysql/mysql.sock
+
+[keystone_authtoken]
+# service_token_roles_required = true
+# www_authenticate_uri = http://localhost:5000/v3
+# auth_url = http://localhost:5000/v3
+# memcached_servers = localhost:11211
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = nova
+# password = NOVA_PASS
+
+[service_user]
+# send_service_user_token = True
+# auth_url = http://localhost:5000/v3
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = nova
+# password = NOVA_PASS
+
+[oslo_concurrency]
+lock_path = /var/db/nova/tmp
+
+[nova_sys_admin]
+helper_command = sudo %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/nova/nova.conf
+
+[privsep_osbrick]
+helper_command = sudo %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/nova/nova.conf
+
+[vnc]
+enabled = False
+#novncproxy_base_url = http://127.0.0.1:6080/vnc_lite.html
+#server_listen = 127.0.0.1
+#server_proxyclient_address = 127.0.0.1
+
+[conductor]
+workers = 1
+
+[scheduler]
+workers = 1
+discover_hosts_in_cells_interval = 60
+
+[glance]
+# api_servers = http://localhost:9292
+
+[cinder]
+# os_region_name = RegionOne
+
+[neutron]
+# auth_url = http://localhost:5000/v3
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = neutron
+# password = NEUTRON_PASS
+# region_name = RegionOne
+
+[placement]
+# auth_url = http://localhost:5000/v3
+# send_service_user_token = True
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = nova
+# password = NOVA_PASS
+# region_name = RegionOne
+
+# [bhyve]
+# zfs_dataset = zroot/nova
+# shutdown_timeout_graceful = 30

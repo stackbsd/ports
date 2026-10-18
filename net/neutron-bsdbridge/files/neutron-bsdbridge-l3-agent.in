@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# PROVIDE: neutron_bsdbridge_l3_agent
+# REQUIRE: NETWORKING FILESYSTEMS
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=neutron_bsdbridge_l3_agent
+rcvar=neutron_bsdbridge_l3_agent_enable
+desc="neutron-bsdbridge L3 agent"
+
+load_rc_config $name
+
+: ${neutron_bsdbridge_l3_agent_enable:="NO"}
+: ${neutron_bsdbridge_l3_agent_pidfile:="/var/run/${name}.pid"}
+: ${neutron_bsdbridge_l3_agent_logfile:="/var/log/${name}.log"}
+
+pidfile="${neutron_bsdbridge_l3_agent_pidfile}"
+command="/usr/sbin/daemon"
+# runs as root because it creates router jails and epairs and loads pf in them
+command_args="-c -r -H -t ${name} \
+	-P ${pidfile} -o ${neutron_bsdbridge_l3_agent_logfile} \
+	%%PREFIX%%/bin/neutron-bsdbridge-l3-agent"
+
+run_rc_command "$1"

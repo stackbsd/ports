@@ -1,0 +1,2 @@
+cinder-zfs-driver is an OpenStack Cinder volume driver for FreeBSD that stores
+volumes as ZFS zvols.

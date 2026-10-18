@@ -1,0 +1,2 @@
+#!/bin/sh
+exec %%VENV%%/bin/nova-rootwrap "$@"

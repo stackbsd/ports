@@ -1,0 +1,11 @@
+[
+{ type: install
+  message: <<EOM
+horizon is served by gunicorn on the address in
+%%PREFIX%%/etc/horizon/horizon-wsgi.conf (127.0.0.1:8080 by default) and
+serves no static files itself.  Put an HTTP server such as nginx in
+front of it: proxy the application to that address and serve
+%%PREFIX%%/www/horizon/static at /static/.
+EOM
+}
+]

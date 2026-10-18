@@ -1,0 +1,8 @@
+#!/bin/sh
+export GUNICORN_CMD_ARGS="-c python:gunicorn_env_cfg"
+export GUNICORN_WSGI_APP="openstack_dashboard.wsgi:application"
+export GUNICORN_CONTROL_SOCKET_DISABLE=True
+set -a
+. %%PREFIX%%/etc/horizon/horizon-wsgi.conf
+set +a
+exec %%VENV%%/bin/gunicorn

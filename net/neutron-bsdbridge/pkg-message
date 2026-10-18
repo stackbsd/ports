@@ -1,0 +1,42 @@
+[
+{ type: install
+  message: <<EOM
+Enable the mechanism driver in %%PREFIX%%/etc/neutron/plugins/ml2/ml2_conf.ini:
+
+    [ml2]
+    mechanism_drivers = bsdbridge
+
+Map physical networks to trunk interfaces in
+%%PREFIX%%/etc/neutron/bsdbridge_agent.ini, then enable the agents:
+
+    sysrc neutron_bsdbridge_l2_agent_enable=YES
+    sysrc neutron_bsdbridge_dhcp_agent_enable=YES
+    sysrc neutron_bsdbridge_l3_agent_enable=YES
+
+The L3 agent needs the router service plugin in
+%%PREFIX%%/etc/neutron/neutron.conf:
+
+    [DEFAULT]
+    service_plugins = router
+
+Host prerequisites for the L2 agent's security groups:
+
+  - sysctl net.link.bridge.pfil_member=1
+  - /etc/pf.conf must compose the per-port anchors with if-bound
+    states:
+        set state-policy if-bound
+        ether anchor "l2-neutron/port/*"
+        anchor "l2-neutron/port/*"
+
+Do not use the catch-all DHCP setting in /etc/rc.conf:
+
+    ifconfig_DEFAULT="SYNCDHCP"
+
+It makes devd run dhclient on every tap and epair the agents create, so
+the host solicits DHCP on tenant networks.  Configure the real NICs
+explicitly instead:
+
+    ifconfig_vtnet0="SYNCDHCP"
+EOM
+}
+]

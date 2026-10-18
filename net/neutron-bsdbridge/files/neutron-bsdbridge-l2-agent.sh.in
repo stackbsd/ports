@@ -1,0 +1,4 @@
+#!/bin/sh
+exec %%VENV%%/bin/neutron-bsdbridge-l2-agent \
+    --config-file %%PREFIX%%/etc/neutron/neutron.conf \
+    --config-file %%PREFIX%%/etc/neutron/bsdbridge_agent.ini "$@"

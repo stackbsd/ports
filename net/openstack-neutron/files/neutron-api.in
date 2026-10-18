@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# PROVIDE: neutron_api
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=neutron_api
+rcvar=neutron_api_enable
+desc="Neutron API server"
+
+load_rc_config $name
+
+: ${neutron_api_enable:="NO"}
+: ${neutron_api_runas:="neutron"}
+: ${neutron_api_statedir:="/var/db/neutron"}
+: ${neutron_api_pidfile:="/var/run/${name}.pid"}
+: ${neutron_api_logfile:="/var/log/${name}.log"}
+
+pidfile="${neutron_api_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${neutron_api_runas} \
+	-P ${pidfile} -o ${neutron_api_logfile} \
+	%%PREFIX%%/bin/neutron-api"
+
+start_precmd="neutron_api_precmd"
+
+neutron_api_precmd()
+{
+	/usr/bin/install -d -o "${neutron_api_runas}" -g "${neutron_api_runas}" \
+		-m 0750 \
+		"${neutron_api_statedir}" \
+		"${neutron_api_statedir}/tmp"
+}
+
+run_rc_command "$1"

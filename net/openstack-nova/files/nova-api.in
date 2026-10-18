@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# PROVIDE: nova_api
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=nova_api
+rcvar=nova_api_enable
+desc="Nova API server"
+
+load_rc_config $name
+
+: ${nova_api_enable:="NO"}
+: ${nova_api_runas:="nova"}
+: ${nova_api_statedir:="/var/db/nova"}
+: ${nova_api_pidfile:="/var/run/${name}.pid"}
+: ${nova_api_logfile:="/var/log/${name}.log"}
+
+pidfile="${nova_api_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${nova_api_runas} \
+	-P ${pidfile} -o ${nova_api_logfile} \
+	%%PREFIX%%/bin/nova-api"
+
+start_precmd="nova_api_precmd"
+
+nova_api_precmd()
+{
+	/usr/bin/install -d -o "${nova_api_runas}" -g "${nova_api_runas}" \
+		-m 0750 \
+		"${nova_api_statedir}" \
+		"${nova_api_statedir}/tmp"
+}
+
+run_rc_command "$1"

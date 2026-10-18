@@ -1,0 +1,2 @@
+OpenStack Placement provides an HTTP service for tracking resources and usage to
+help other OpenStack services manage and allocate their resources.

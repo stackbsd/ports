@@ -1,0 +1,9 @@
+#!/bin/sh
+export GUNICORN_CMD_ARGS="-c python:gunicorn_env_cfg"
+export GUNICORN_WSGI_APP="cinder.wsgi.api:application"
+export GUNICORN_CONTROL_SOCKET_DISABLE=True
+export HOME="%%PREFIX%%/etc/cinder"
+set -a
+. %%PREFIX%%/etc/cinder/cinder-wsgi.conf
+set +a
+exec %%VENV%%/bin/gunicorn

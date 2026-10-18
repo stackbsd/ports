@@ -1,0 +1,32 @@
+[
+{ type: install
+  message: <<EOM
+Enable the backend in %%PREFIX%%/etc/cinder/cinder.conf:
+
+    [DEFAULT]
+    enabled_backends = zfs
+    default_volume_type = zfs
+
+    [zfs]
+    volume_driver = cinder_zfs_driver.driver.ZFSVolumeDriver
+    volume_backend_name = ZFS
+    zfs_dataset = zroot/cinder
+    zfs_sparse_volumes = true
+    use_chap_auth = true
+
+Host prerequisites:
+
+  - the cinder user holds ZFS delegated administration on the dataset:
+        zfs create zroot/cinder
+        zfs allow -u cinder clone,compression,create,destroy,mount,promote,refreservation,rollback,snapshot,userprop,volblocksize,volmode,volsize zroot/cinder
+  - remote iSCSI export needs ctld running against the file the driver
+    writes.  ctld refuses an empty config, so seed it with the portal
+    group before the first start:
+        install -d -m 0750 -o cinder -g cinder /var/db/cinder
+        printf 'portal-group "cinder" {\n    discovery-auth-group no-authentication\n    listen 127.0.0.1:3260\n}\n' > /var/db/cinder/ctl.conf
+        chown cinder:cinder /var/db/cinder/ctl.conf
+        sysrc ctld_flags="-f /var/db/cinder/ctl.conf" ctld_enable=YES
+        service ctld start
+EOM
+}
+]

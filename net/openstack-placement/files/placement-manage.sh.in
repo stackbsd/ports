@@ -1,0 +1,3 @@
+#!/bin/sh
+exec %%VENV%%/bin/placement-manage \
+    --config-file %%PREFIX%%/etc/placement/placement.conf "$@"

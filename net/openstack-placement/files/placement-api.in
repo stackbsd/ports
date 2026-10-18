@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# PROVIDE: placement_api
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=placement_api
+rcvar=placement_api_enable
+desc="Placement API server"
+
+load_rc_config $name
+
+: ${placement_api_enable:="NO"}
+: ${placement_api_runas:="placement"}
+: ${placement_api_pidfile:="/var/run/${name}.pid"}
+: ${placement_api_logfile:="/var/log/${name}.log"}
+
+pidfile="${placement_api_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${placement_api_runas} \
+	-P ${pidfile} -o ${placement_api_logfile} \
+	%%PREFIX%%/bin/placement-api"
+
+run_rc_command "$1"

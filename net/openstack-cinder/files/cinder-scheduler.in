@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# PROVIDE: cinder_scheduler
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=cinder_scheduler
+rcvar=cinder_scheduler_enable
+desc="Cinder scheduler"
+
+load_rc_config $name
+
+: ${cinder_scheduler_enable:="NO"}
+: ${cinder_scheduler_runas:="cinder"}
+: ${cinder_scheduler_statedir:="/var/db/cinder"}
+: ${cinder_scheduler_pidfile:="/var/run/${name}.pid"}
+: ${cinder_scheduler_logfile:="/var/log/${name}.log"}
+
+pidfile="${cinder_scheduler_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${cinder_scheduler_runas} \
+	-P ${pidfile} -o ${cinder_scheduler_logfile} \
+	%%PREFIX%%/bin/cinder-scheduler"
+
+start_precmd="cinder_scheduler_precmd"
+
+cinder_scheduler_precmd()
+{
+	/usr/bin/install -d -o "${cinder_scheduler_runas}" \
+		-g "${cinder_scheduler_runas}" -m 0750 \
+		"${cinder_scheduler_statedir}" \
+		"${cinder_scheduler_statedir}/tmp"
+}
+
+run_rc_command "$1"

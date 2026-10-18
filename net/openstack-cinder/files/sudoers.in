@@ -1,0 +1,4 @@
+cinder ALL = (root) NOPASSWD: %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/cinder/cinder.conf --privsep_context cinder.privsep.sys_admin_pctxt --privsep_sock_path /tmp/*/privsep.sock
+cinder ALL = (root) NOPASSWD: %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/cinder/cinder.conf --privsep_context os_brick.privileged.default --privsep_sock_path /tmp/*/privsep.sock
+cinder ALL = (root) NOPASSWD: %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/cinder/cinder.conf --privsep_context os_brick.privileged.brick_privsep_hide_output --privsep_sock_path /tmp/*/privsep.sock
+cinder ALL = (root) NOPASSWD: %%PREFIX%%/bin/cinder-rootwrap %%PREFIX%%/etc/cinder/rootwrap.conf *

@@ -1,0 +1,10 @@
+"""Settings for collecting the static tree at build time."""
+
+SECRET_KEY = "build"
+STATIC_ROOT = "%%STATIC_ROOT%%"
+COMPRESS_OFFLINE = True
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    },
+}
