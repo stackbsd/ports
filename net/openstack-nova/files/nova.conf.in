@@ -19,6 +19,11 @@ vif_plugging_is_fatal = False
 # connection = mysql+pymysql://nova:NOVA_DBPASS@localhost/nova_api
 # connection = mysql+pymysql://nova@/nova_api?unix_socket=/var/run/mysql/mysql.sock
 
+[oslo_messaging_rabbit]
+amqp_durable_queues = true
+rabbit_quorum_queue = true
+rabbit_transient_quorum_queue = true
+
 [keystone_authtoken]
 # service_token_roles_required = true
 # www_authenticate_uri = http://localhost:5000/v3

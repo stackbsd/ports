@@ -14,6 +14,11 @@ lock_path = /var/db/neutron/tmp
 # connection = mysql+pymysql://neutron:NEUTRON_DBPASS@localhost/neutron
 # connection = mysql+pymysql://neutron@/neutron?unix_socket=/var/run/mysql/mysql.sock
 
+[oslo_messaging_rabbit]
+amqp_durable_queues = true
+rabbit_quorum_queue = true
+rabbit_transient_quorum_queue = true
+
 [keystone_authtoken]
 # www_authenticate_uri = http://localhost:5000/v3
 # auth_url = http://localhost:5000/v3
