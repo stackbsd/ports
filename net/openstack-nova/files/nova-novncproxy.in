@@ -13,7 +13,7 @@ desc="Nova noVNC console proxy"
 load_rc_config $name
 
 : ${nova_novncproxy_enable:="NO"}
-: ${nova_novncproxy_runas:="nova"}
+: ${nova_novncproxy_run_user:="nova"}
 : ${nova_novncproxy_web:="%%PREFIX%%/libexec/novnc"}
 : ${nova_novncproxy_pidfile:="/var/run/${name}.pid"}
 : ${nova_novncproxy_logfile:="/var/log/${name}.log"}
@@ -23,7 +23,7 @@ nova_novncproxy_env="EVENTLET_HUB=poll ${nova_novncproxy_env}"
 
 pidfile="${nova_novncproxy_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${nova_novncproxy_runas} \
+command_args="-c -r -H -t ${name} -u ${nova_novncproxy_run_user} \
 	-P ${pidfile} -o ${nova_novncproxy_logfile} \
 	%%PREFIX%%/bin/nova-novncproxy --web ${nova_novncproxy_web}"
 

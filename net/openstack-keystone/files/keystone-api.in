@@ -13,14 +13,14 @@ desc="Keystone API server"
 load_rc_config $name
 
 : ${keystone_api_enable:="NO"}
-: ${keystone_api_runas:="keystone"}
+: ${keystone_api_run_user:="keystone"}
 : ${keystone_api_pidfile:="/var/run/${name}.pid"}
 : ${keystone_api_logfile:="/var/log/${name}.log"}
 : ${keystone_api_stop_timeout:="30"}
 
 pidfile="${keystone_api_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${keystone_api_runas} \
+command_args="-c -r -H -t ${name} -u ${keystone_api_run_user} \
 	-P ${pidfile} -o ${keystone_api_logfile} \
 	%%PREFIX%%/bin/keystone-api"
 

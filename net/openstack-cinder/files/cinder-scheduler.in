@@ -13,7 +13,7 @@ desc="Cinder scheduler"
 load_rc_config $name
 
 : ${cinder_scheduler_enable:="NO"}
-: ${cinder_scheduler_runas:="cinder"}
+: ${cinder_scheduler_run_user:="cinder"}
 : ${cinder_scheduler_statedir:="/var/db/cinder"}
 : ${cinder_scheduler_pidfile:="/var/run/${name}.pid"}
 : ${cinder_scheduler_logfile:="/var/log/${name}.log"}
@@ -21,7 +21,7 @@ load_rc_config $name
 
 pidfile="${cinder_scheduler_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${cinder_scheduler_runas} \
+command_args="-c -r -H -t ${name} -u ${cinder_scheduler_run_user} \
 	-P ${pidfile} -o ${cinder_scheduler_logfile} \
 	%%PREFIX%%/bin/cinder-scheduler"
 
@@ -29,8 +29,8 @@ start_precmd="cinder_scheduler_precmd"
 
 cinder_scheduler_precmd()
 {
-	/usr/bin/install -d -o "${cinder_scheduler_runas}" \
-		-g "${cinder_scheduler_runas}" -m 0750 \
+	/usr/bin/install -d -o "${cinder_scheduler_run_user}" \
+		-g "${cinder_scheduler_run_user}" -m 0750 \
 		"${cinder_scheduler_statedir}" \
 		"${cinder_scheduler_statedir}/tmp"
 }

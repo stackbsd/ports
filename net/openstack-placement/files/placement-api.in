@@ -13,14 +13,14 @@ desc="Placement API server"
 load_rc_config $name
 
 : ${placement_api_enable:="NO"}
-: ${placement_api_runas:="placement"}
+: ${placement_api_run_user:="placement"}
 : ${placement_api_pidfile:="/var/run/${name}.pid"}
 : ${placement_api_logfile:="/var/log/${name}.log"}
 : ${placement_api_stop_timeout:="30"}
 
 pidfile="${placement_api_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${placement_api_runas} \
+command_args="-c -r -H -t ${name} -u ${placement_api_run_user} \
 	-P ${pidfile} -o ${placement_api_logfile} \
 	%%PREFIX%%/bin/placement-api"
 

@@ -13,7 +13,7 @@ desc="Glance API server"
 load_rc_config $name
 
 : ${glance_api_enable:="NO"}
-: ${glance_api_runas:="glance"}
+: ${glance_api_run_user:="glance"}
 : ${glance_api_datadir:="/var/db/glance"}
 : ${glance_api_pidfile:="/var/run/${name}.pid"}
 : ${glance_api_logfile:="/var/log/${name}.log"}
@@ -21,7 +21,7 @@ load_rc_config $name
 
 pidfile="${glance_api_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${glance_api_runas} \
+command_args="-c -r -H -t ${name} -u ${glance_api_run_user} \
 	-P ${pidfile} -o ${glance_api_logfile} \
 	%%PREFIX%%/bin/glance-api"
 
@@ -29,7 +29,7 @@ start_precmd="glance_api_precmd"
 
 glance_api_precmd()
 {
-	/usr/bin/install -d -o "${glance_api_runas}" -g "${glance_api_runas}" \
+	/usr/bin/install -d -o "${glance_api_run_user}" -g "${glance_api_run_user}" \
 		-m 0750 \
 		"${glance_api_datadir}" \
 		"${glance_api_datadir}/images" \

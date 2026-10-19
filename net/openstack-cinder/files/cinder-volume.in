@@ -13,7 +13,7 @@ desc="Cinder volume service"
 load_rc_config $name
 
 : ${cinder_volume_enable:="NO"}
-: ${cinder_volume_runas:="cinder"}
+: ${cinder_volume_run_user:="cinder"}
 : ${cinder_volume_statedir:="/var/db/cinder"}
 : ${cinder_volume_pidfile:="/var/run/${name}.pid"}
 : ${cinder_volume_logfile:="/var/log/${name}.log"}
@@ -21,7 +21,7 @@ load_rc_config $name
 
 pidfile="${cinder_volume_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${cinder_volume_runas} \
+command_args="-c -r -H -t ${name} -u ${cinder_volume_run_user} \
 	-P ${pidfile} -o ${cinder_volume_logfile} \
 	%%PREFIX%%/bin/cinder-volume"
 
@@ -29,8 +29,8 @@ start_precmd="cinder_volume_precmd"
 
 cinder_volume_precmd()
 {
-	/usr/bin/install -d -o "${cinder_volume_runas}" \
-		-g "${cinder_volume_runas}" -m 0750 \
+	/usr/bin/install -d -o "${cinder_volume_run_user}" \
+		-g "${cinder_volume_run_user}" -m 0750 \
 		"${cinder_volume_statedir}" \
 		"${cinder_volume_statedir}/tmp" \
 		"${cinder_volume_statedir}/conversion"

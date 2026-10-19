@@ -13,7 +13,7 @@ desc="Horizon dashboard server"
 load_rc_config $name
 
 : ${horizon_enable:="NO"}
-: ${horizon_runas:="horizon"}
+: ${horizon_run_user:="horizon"}
 : ${horizon_statedir:="/var/db/horizon"}
 : ${horizon_pidfile:="/var/run/${name}.pid"}
 : ${horizon_logfile:="/var/log/${name}.log"}
@@ -21,7 +21,7 @@ load_rc_config $name
 
 pidfile="${horizon_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${horizon_runas} \
+command_args="-c -r -H -t ${name} -u ${horizon_run_user} \
 	-P ${pidfile} -o ${horizon_logfile} \
 	%%PREFIX%%/bin/horizon"
 
@@ -29,7 +29,7 @@ start_precmd="horizon_precmd"
 
 horizon_precmd()
 {
-	/usr/bin/install -d -o "${horizon_runas}" -g "${horizon_runas}" \
+	/usr/bin/install -d -o "${horizon_run_user}" -g "${horizon_run_user}" \
 		-m 0750 "${horizon_statedir}"
 }
 
