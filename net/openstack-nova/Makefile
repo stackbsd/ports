@@ -23,7 +23,7 @@ USE_RC_SUBR=	nova-api nova-scheduler nova-conductor nova-compute \
 
 SUB_FILES=	nova-api.sh nova-compute.sh nova-conductor.sh nova-manage.sh \
 		nova-novncproxy.sh nova-rootwrap.sh nova-scheduler.sh \
-		nova-status.sh nova.conf rootwrap.conf sudoers
+		nova-status.sh nova.conf pkg-message rootwrap.conf sudoers
 SUB_LIST=	VENV=${VENV}
 
 USERS=		nova

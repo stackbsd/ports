@@ -1,0 +1,18 @@
+[
+{ type: install
+  message: <<EOM
+nova-compute, nova-conductor and nova-scheduler wait manager_shutdown_timeout
+seconds on SIGTERM before exiting. The sample nova.conf sets it to 15s
+and the rc scripts have a stop timeout of 30s by default.
+
+If you expect long builds or migrations, raise them together:
+
+    manager_shutdown_timeout = 160 and graceful_shutdown_timeout = 180
+    in %%PREFIX%%/etc/nova/nova.conf
+    nova_compute_stop_timeout="190" and the same for conductor and
+    scheduler in /etc/rc.conf
+    rcshutdown_timeout in /etc/rc.conf high enough to cover every service
+    that stops at shutdown
+EOM
+}
+]

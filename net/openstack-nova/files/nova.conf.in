@@ -6,6 +6,7 @@ force_config_drive = True
 mkisofs_cmd = xorrisofs
 allow_resize_to_same_host = True
 vif_plugging_is_fatal = False
+manager_shutdown_timeout = 15
 
 # compute_driver = bhyve.driver.BhyveDriver
 # transport_url = rabbit://username:password@localhost:5672/
