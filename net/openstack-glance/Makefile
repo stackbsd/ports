@@ -11,7 +11,8 @@ LICENSE=	APACHE20
 
 BUILD_DEPENDS=	openstack-runtime>=2026.1.0:net/openstack-runtime
 
-RUN_DEPENDS=	openstack-runtime>=2026.1.0:net/openstack-runtime \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR} \
+		openstack-runtime>=2026.1.0:net/openstack-runtime \
 		qemu-img:emulators/qemu@tools
 
 USE_RC_SUBR=	glance-api
