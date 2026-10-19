@@ -17,6 +17,7 @@ load_rc_config $name
 : ${nova_conductor_statedir:="/var/db/nova"}
 : ${nova_conductor_pidfile:="/var/run/${name}.pid"}
 : ${nova_conductor_logfile:="/var/log/${name}.log"}
+: ${nova_conductor_stop_timeout:="30"}
 
 pidfile="${nova_conductor_pidfile}"
 command="/usr/sbin/daemon"
@@ -32,6 +33,20 @@ nova_conductor_precmd()
 		-g "${nova_conductor_runas}" -m 0750 \
 		"${nova_conductor_statedir}" \
 		"${nova_conductor_statedir}/tmp"
+}
+
+stop_cmd="nova_conductor_stop"
+
+nova_conductor_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${nova_conductor_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${nova_conductor_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
 }
 
 run_rc_command "$1"

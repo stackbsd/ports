@@ -17,6 +17,7 @@ load_rc_config $name
 : ${neutron_rpc_server_statedir:="/var/db/neutron"}
 : ${neutron_rpc_server_pidfile:="/var/run/${name}.pid"}
 : ${neutron_rpc_server_logfile:="/var/log/${name}.log"}
+: ${neutron_rpc_server_stop_timeout:="30"}
 
 pidfile="${neutron_rpc_server_pidfile}"
 command="/usr/sbin/daemon"
@@ -34,6 +35,20 @@ neutron_rpc_server_precmd()
 		-g "${neutron_rpc_server_runas}" -m 0750 \
 		"${neutron_rpc_server_statedir}" \
 		"${neutron_rpc_server_statedir}/tmp"
+}
+
+stop_cmd="neutron_rpc_server_stop"
+
+neutron_rpc_server_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${neutron_rpc_server_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${neutron_rpc_server_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
 }
 
 run_rc_command "$1"

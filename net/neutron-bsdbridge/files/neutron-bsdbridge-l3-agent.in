@@ -15,6 +15,7 @@ load_rc_config $name
 : ${neutron_bsdbridge_l3_agent_enable:="NO"}
 : ${neutron_bsdbridge_l3_agent_pidfile:="/var/run/${name}.pid"}
 : ${neutron_bsdbridge_l3_agent_logfile:="/var/log/${name}.log"}
+: ${neutron_bsdbridge_l3_agent_stop_timeout:="30"}
 
 pidfile="${neutron_bsdbridge_l3_agent_pidfile}"
 command="/usr/sbin/daemon"
@@ -22,5 +23,19 @@ command="/usr/sbin/daemon"
 command_args="-c -r -H -t ${name} \
 	-P ${pidfile} -o ${neutron_bsdbridge_l3_agent_logfile} \
 	%%PREFIX%%/bin/neutron-bsdbridge-l3-agent"
+
+stop_cmd="neutron_bsdbridge_l3_agent_stop"
+
+neutron_bsdbridge_l3_agent_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${neutron_bsdbridge_l3_agent_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${neutron_bsdbridge_l3_agent_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
 
 run_rc_command "$1"

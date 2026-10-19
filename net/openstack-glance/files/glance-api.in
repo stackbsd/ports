@@ -17,6 +17,7 @@ load_rc_config $name
 : ${glance_api_datadir:="/var/db/glance"}
 : ${glance_api_pidfile:="/var/run/${name}.pid"}
 : ${glance_api_logfile:="/var/log/${name}.log"}
+: ${glance_api_stop_timeout:="30"}
 
 pidfile="${glance_api_pidfile}"
 command="/usr/sbin/daemon"
@@ -34,6 +35,20 @@ glance_api_precmd()
 		"${glance_api_datadir}/images" \
 		"${glance_api_datadir}/staging" \
 		"${glance_api_datadir}/tasks"
+}
+
+stop_cmd="glance_api_stop"
+
+glance_api_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${glance_api_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${glance_api_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
 }
 
 run_rc_command "$1"

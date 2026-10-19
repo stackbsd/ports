@@ -17,6 +17,7 @@ load_rc_config $name
 : ${nova_novncproxy_web:="%%PREFIX%%/libexec/novnc"}
 : ${nova_novncproxy_pidfile:="/var/run/${name}.pid"}
 : ${nova_novncproxy_logfile:="/var/log/${name}.log"}
+: ${nova_novncproxy_stop_timeout:="30"}
 
 nova_novncproxy_env="EVENTLET_HUB=poll ${nova_novncproxy_env}"
 
@@ -25,5 +26,19 @@ command="/usr/sbin/daemon"
 command_args="-c -r -H -t ${name} -u ${nova_novncproxy_runas} \
 	-P ${pidfile} -o ${nova_novncproxy_logfile} \
 	%%PREFIX%%/bin/nova-novncproxy --web ${nova_novncproxy_web}"
+
+stop_cmd="nova_novncproxy_stop"
+
+nova_novncproxy_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${nova_novncproxy_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${nova_novncproxy_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
 
 run_rc_command "$1"

@@ -16,11 +16,26 @@ load_rc_config $name
 : ${keystone_api_runas:="keystone"}
 : ${keystone_api_pidfile:="/var/run/${name}.pid"}
 : ${keystone_api_logfile:="/var/log/${name}.log"}
+: ${keystone_api_stop_timeout:="30"}
 
 pidfile="${keystone_api_pidfile}"
 command="/usr/sbin/daemon"
 command_args="-c -r -H -t ${name} -u ${keystone_api_runas} \
 	-P ${pidfile} -o ${keystone_api_logfile} \
 	%%PREFIX%%/bin/keystone-api"
+
+stop_cmd="keystone_api_stop"
+
+keystone_api_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${keystone_api_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${keystone_api_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
 
 run_rc_command "$1"

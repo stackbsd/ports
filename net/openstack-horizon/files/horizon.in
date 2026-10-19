@@ -17,6 +17,7 @@ load_rc_config $name
 : ${horizon_statedir:="/var/db/horizon"}
 : ${horizon_pidfile:="/var/run/${name}.pid"}
 : ${horizon_logfile:="/var/log/${name}.log"}
+: ${horizon_stop_timeout:="30"}
 
 pidfile="${horizon_pidfile}"
 command="/usr/sbin/daemon"
@@ -30,6 +31,20 @@ horizon_precmd()
 {
 	/usr/bin/install -d -o "${horizon_runas}" -g "${horizon_runas}" \
 		-m 0750 "${horizon_statedir}"
+}
+
+stop_cmd="horizon_stop"
+
+horizon_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${horizon_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${horizon_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
 }
 
 run_rc_command "$1"

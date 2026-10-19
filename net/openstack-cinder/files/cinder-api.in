@@ -17,6 +17,7 @@ load_rc_config $name
 : ${cinder_api_statedir:="/var/db/cinder"}
 : ${cinder_api_pidfile:="/var/run/${name}.pid"}
 : ${cinder_api_logfile:="/var/log/${name}.log"}
+: ${cinder_api_stop_timeout:="30"}
 
 pidfile="${cinder_api_pidfile}"
 command="/usr/sbin/daemon"
@@ -32,6 +33,20 @@ cinder_api_precmd()
 		-m 0750 \
 		"${cinder_api_statedir}" \
 		"${cinder_api_statedir}/tmp"
+}
+
+stop_cmd="cinder_api_stop"
+
+cinder_api_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${cinder_api_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${cinder_api_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
 }
 
 run_rc_command "$1"
