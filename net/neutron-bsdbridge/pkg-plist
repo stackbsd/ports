@@ -6,10 +6,10 @@ etc/newsyslog.conf.d/neutron-bsdbridge-log.conf
 %%VENV%%/bin/neutron-bsdbridge-dhcp-agent
 %%VENV%%/bin/neutron-bsdbridge-l2-agent
 %%VENV%%/bin/neutron-bsdbridge-l3-agent
-%%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.3.dist-info/METADATA
-%%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.3.dist-info/RECORD
-%%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.3.dist-info/WHEEL
-%%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.3.dist-info/entry_points.txt
+%%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.5.dist-info/METADATA
+%%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.5.dist-info/RECORD
+%%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.5.dist-info/WHEEL
+%%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.5.dist-info/entry_points.txt
 %%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge/__init__.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge/__pycache__/__init__%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge/__pycache__/config%%PYTHON_TAG%%.pyc
