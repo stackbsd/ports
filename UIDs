@@ -1,3 +1,5 @@
 placement:*:741:741::0:0:Placement Daemon:/nonexistent:/usr/sbin/nologin
 neutron:*:744:744::0:0:Neutron Daemon:/nonexistent:/usr/sbin/nologin
 designate:*:747:747::0:0:Designate Daemon:/nonexistent:/usr/sbin/nologin
+nova-migrate:*:745:196::0:0:Nova migration receiver:/var/db/nova-migrate:/bin/sh
+cinder-migrate:*:746:203::0:0:Cinder migration receiver:/var/db/cinder-migrate:/bin/sh

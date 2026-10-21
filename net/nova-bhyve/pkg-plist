@@ -1,12 +1,15 @@
+bin/nova-bhyve-receive
+%%VENV%%/bin/nova-bhyve-receive
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/__init__.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/__pycache__/__init__%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/__pycache__/driver%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/__pycache__/privsep%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/driver.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/privsep.py
-%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.3.dist-info/METADATA
-%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.3.dist-info/RECORD
-%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.3.dist-info/WHEEL
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.4.dist-info/METADATA
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.4.dist-info/RECORD
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.4.dist-info/WHEEL
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.4.dist-info/entry_points.txt
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__init__.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/__init__%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/conf%%PYTHON_TAG%%.pyc
@@ -15,6 +18,7 @@
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/imagecache%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/images%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/lifecycle%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/migration%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/supervisor%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/conf.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/driver.py
@@ -26,8 +30,10 @@
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/__pycache__/__init__%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/__pycache__/direct%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/direct.py
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/migration.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/storage/__init__.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/storage/__pycache__/__init__%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/storage/__pycache__/zfs%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/storage/zfs.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/supervisor.py
+@dir(nova-migrate,nova,0770) /var/db/nova-migrate/instances

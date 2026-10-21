@@ -1,5 +1,5 @@
 PORTNAME=	cinder-zfs-driver
-DISTVERSION=	0.9.1
+DISTVERSION=	0.9.2
 CATEGORIES=	net python
 MASTER_SITES=	PYPI
 DISTNAME=	${PORTNAME:S/-/_/g}-${DISTVERSION}
@@ -21,8 +21,13 @@ USE_PYTHON=	noflavors pep517
 SHEBANG_GLOB=	*.py
 python_CMD=	${VENV}/bin/python${PYTHON_VER}
 
+USERS=		cinder-migrate
+GROUPS=		cinder
+
 NO_ARCH=	yes
 
+SUB_FILES=	cinder-zfs-receive.sh
+SUB_LIST=	VENV=${VENV}
 PLIST_SUB=	VENV=libexec/openstack
 
 # the shared venv from net/openstack-runtime
@@ -35,6 +40,7 @@ do-install:
 		${WRKSRC}/dist/*.whl
 
 post-install:
+	${INSTALL_SCRIPT} ${WRKDIR}/cinder-zfs-receive.sh ${STAGEDIR}${PREFIX}/bin/cinder-zfs-receive
 	${PYTHON_CMD} -m compileall -q -j0 -s ${STAGEDIR} -p / ${STAGEDIR}${VENV}/lib
 
 .include <bsd.port.mk>

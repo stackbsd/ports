@@ -18,7 +18,7 @@ Host prerequisites:
 
   - the cinder user holds ZFS delegated administration on the dataset:
         zfs create zroot/cinder
-        zfs allow -u cinder clone,compression,create,destroy,mount,promote,refreservation,rollback,snapshot,userprop,volblocksize,volmode,volsize zroot/cinder
+        zfs allow -u cinder clone,compression,create,destroy,mount,promote,receive,refreservation,rollback,send,snapshot,userprop,volblocksize,volmode,volsize zroot/cinder
   - remote iSCSI export needs ctld running against the file the driver
     writes.  ctld refuses an empty config, so seed it with the portal
     group before the first start:
@@ -27,6 +27,17 @@ Host prerequisites:
         chown cinder:cinder /var/db/cinder/ctl.conf
         sysrc ctld_flags="-f /var/db/cinder/ctl.conf" ctld_enable=YES
         service ctld start
+  - migration to a backend on another host sends zvols over ssh. Give the
+    cinder user a key and point migration_ssh_config in the backend section
+    at a file naming it:
+        Host *
+            User cinder-migrate
+            IdentityFile %%PREFIX%%/etc/cinder/migrate_key
+            UserKnownHostsFile %%PREFIX%%/etc/cinder/known_hosts
+    On the receiving host the cinder-migrate user receives it:
+        zfs allow -u cinder-migrate create,destroy,receive,refreservation zroot/cinder
+    and pins each sender's key in /var/db/cinder-migrate/.ssh/authorized_keys:
+        command="cinder-zfs-receive",restrict ssh-ed25519 AAAA... cinder@storage1
 EOM
 }
 ]

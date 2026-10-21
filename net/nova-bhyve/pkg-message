@@ -17,13 +17,23 @@ Host prerequisites:
     children, and the nova user holds ZFS delegated administration on it:
         zfs create -o volmode=dev zroot/nova
         zfs create zroot/nova/images zroot/nova/instances
-        zfs allow -u nova clone,compression,create,destroy,mount,promote,refreservation,rollback,snapshot,userprop,volblocksize,volmode,volsize zroot/nova
+        zfs allow -u nova clone,compression,create,destroy,mount,promote,refreservation,rollback,send,snapshot,userprop,volblocksize,volmode,volsize zroot/nova
   - /etc/devfs.rules grants the nova group the zvol device nodes, one rule
     per container as devfs globs do not cross a slash:
         [nova_zvol=10]
         add path 'zvol/zroot/nova/images/*' mode 0660 group nova
         add path 'zvol/zroot/nova/instances/*' mode 0660 group nova
     and /etc/rc.conf selects it with devfs_system_ruleset="nova_zvol"
+  - cold migration between hosts sends zvols over ssh.  Give the nova user
+    a key and point [bhyve] migration_ssh_config at a file naming it:
+        Host *
+            User nova-migrate
+            IdentityFile %%PREFIX%%/etc/nova/migrate_key
+            UserKnownHostsFile %%PREFIX%%/etc/nova/known_hosts
+    On every other compute host the nova-migrate user receives it:
+        zfs allow -u nova-migrate create,destroy,receive zroot/nova
+    and pins each sender's key in /var/db/nova-migrate/.ssh/authorized_keys:
+        command="nova-bhyve-receive",restrict ssh-ed25519 AAAA... nova@compute1
 EOM
 }
 ]

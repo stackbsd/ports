@@ -42,3 +42,4 @@ helper_command = sudo %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/c
 # volume_backend_name = ZFS
 # zfs_dataset = zroot/cinder
 # zfs_sparse_volumes = true
+# migration_ssh_config = %%PREFIX%%/etc/cinder/ssh_config

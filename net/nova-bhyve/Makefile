@@ -1,5 +1,5 @@
 PORTNAME=	nova-bhyve
-DISTVERSION=	0.9.3
+DISTVERSION=	0.9.4
 CATEGORIES=	net python
 MASTER_SITES=	PYPI
 DISTNAME=	${PORTNAME:S/-/_/g}-${DISTVERSION}
@@ -25,8 +25,13 @@ USE_PYTHON=	noflavors pep517
 SHEBANG_GLOB=	*.py
 python_CMD=	${VENV}/bin/python${PYTHON_VER}
 
+USERS=		nova-migrate
+GROUPS=		nova
+
 NO_ARCH=	yes
 
+SUB_FILES=	nova-bhyve-receive.sh
+SUB_LIST=	VENV=${VENV}
 PLIST_SUB=	VENV=libexec/openstack
 
 # the shared venv from net/openstack-runtime
@@ -39,6 +44,8 @@ do-install:
 		${WRKSRC}/dist/*.whl
 
 post-install:
+	${INSTALL_SCRIPT} ${WRKDIR}/nova-bhyve-receive.sh ${STAGEDIR}${PREFIX}/bin/nova-bhyve-receive
+	@${MKDIR} ${STAGEDIR}/var/db/nova-migrate/instances
 	${PYTHON_CMD} -m compileall -q -j0 -s ${STAGEDIR} -p / ${STAGEDIR}${VENV}/lib
 
 .include <bsd.port.mk>
