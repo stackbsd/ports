@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# PROVIDE: ironic_conductor
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=ironic_conductor
+rcvar=ironic_conductor_enable
+desc="Ironic conductor service"
+
+load_rc_config $name
+
+: ${ironic_conductor_enable:="NO"}
+: ${ironic_conductor_run_user:="ironic"}
+: ${ironic_conductor_statedir:="/var/db/ironic"}
+: ${ironic_conductor_pidfile:="/var/run/${name}.pid"}
+: ${ironic_conductor_logfile:="/var/log/${name}.log"}
+: ${ironic_conductor_stop_timeout:="30"}
+
+pidfile="${ironic_conductor_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${ironic_conductor_run_user} \
+	-P ${pidfile} -o ${ironic_conductor_logfile} \
+	%%PREFIX%%/bin/ironic-conductor"
+
+start_precmd="ironic_conductor_precmd"
+
+ironic_conductor_precmd()
+{
+	/usr/bin/install -d -o "${ironic_conductor_run_user}" \
+		-g "${ironic_conductor_run_user}" -m 0750 \
+		"${ironic_conductor_statedir}" \
+		"${ironic_conductor_statedir}/tmp" \
+		"${ironic_conductor_statedir}/tftpboot" \
+		"${ironic_conductor_statedir}/httpboot"
+}
+
+stop_cmd="ironic_conductor_stop"
+
+ironic_conductor_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${ironic_conductor_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${ironic_conductor_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
+
+run_rc_command "$1"

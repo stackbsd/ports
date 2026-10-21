@@ -9,6 +9,7 @@ WWW=		https://github.com/stackbsd
 LICENSE=	APACHE20
 
 LIB_DEPENDS=	libffi.so:devel/libffi \
+		libopenblas.so:math/openblas \
 		libxml2.so:textproc/libxml2 \
 		libxslt.so:textproc/libxslt \
 		libyaml.so:textproc/libyaml

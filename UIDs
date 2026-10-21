@@ -1,3 +1,4 @@
 placement:*:741:741::0:0:Placement Daemon:/nonexistent:/usr/sbin/nologin
 neutron:*:744:744::0:0:Neutron Daemon:/nonexistent:/usr/sbin/nologin
 designate:*:747:747::0:0:Designate Daemon:/nonexistent:/usr/sbin/nologin
+ironic:*:748:748::0:0:Ironic Daemon:/nonexistent:/usr/sbin/nologin

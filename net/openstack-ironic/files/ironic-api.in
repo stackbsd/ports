@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: ironic_api
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=ironic_api
+rcvar=ironic_api_enable
+desc="Ironic API server"
+
+load_rc_config $name
+
+: ${ironic_api_enable:="NO"}
+: ${ironic_api_run_user:="ironic"}
+: ${ironic_api_statedir:="/var/db/ironic"}
+: ${ironic_api_pidfile:="/var/run/${name}.pid"}
+: ${ironic_api_logfile:="/var/log/${name}.log"}
+: ${ironic_api_stop_timeout:="30"}
+
+pidfile="${ironic_api_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${ironic_api_run_user} \
+	-P ${pidfile} -o ${ironic_api_logfile} \
+	%%PREFIX%%/bin/ironic-api"
+
+start_precmd="ironic_api_precmd"
+
+ironic_api_precmd()
+{
+	/usr/bin/install -d -o "${ironic_api_run_user}" \
+		-g "${ironic_api_run_user}" -m 0750 \
+		"${ironic_api_statedir}" \
+		"${ironic_api_statedir}/tmp"
+}
+
+stop_cmd="ironic_api_stop"
+
+ironic_api_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${ironic_api_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${ironic_api_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
+
+run_rc_command "$1"

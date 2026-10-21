@@ -1,0 +1,3 @@
+OpenStack Bare Metal (Ironic) provisions physical servers.  It offers a REST
+API for enrolling and deploying nodes and a conductor that drives their
+management controllers and boots the deploy ramdisk over PXE or virtual media.

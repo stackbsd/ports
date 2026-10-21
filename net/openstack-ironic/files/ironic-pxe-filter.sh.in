@@ -1,0 +1,3 @@
+#!/bin/sh
+exec %%VENV%%/bin/ironic-pxe-filter \
+    --config-file %%PREFIX%%/etc/ironic/ironic.conf "$@"

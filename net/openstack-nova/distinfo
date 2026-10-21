@@ -1,14 +1,6 @@
-TIMESTAMP = 1789038132
-SHA256 (stackbsd/jwcrypto-1.5.6.tar.gz) = 771a87762a0c081ae6166958a954f80848820b2ab066937dc8b8379d65b1b039
-SIZE (stackbsd/jwcrypto-1.5.6.tar.gz) = 87168
+TIMESTAMP = 1792619572
 SHA256 (stackbsd/nova-33.0.2.tar.gz) = 84ab864ced8867f2989f3ba65ead61a7e39891ee7ea693850331636ac9d360ea
 SIZE (stackbsd/nova-33.0.2.tar.gz) = 9775937
-SHA256 (stackbsd/numpy-2.2.6.tar.gz) = e29554e2bef54a90aa5cc07da6ce955accb83f21ab5de01a62c8478897b264fd
-SIZE (stackbsd/numpy-2.2.6.tar.gz) = 20276440
-SHA256 (stackbsd/redis-7.2.0.tar.gz) = 4dd5bf4bd4ae80510267f14185a15cba2a38666b941aff68cccf0256b51c1f26
-SIZE (stackbsd/redis-7.2.0.tar.gz) = 4901247
-SHA256 (stackbsd/websockify-0.13.0.tar.gz) = 9969731116653226c4c499a8a50712c8f3f7c105c615ead7ebc6ae781f0ba954
-SIZE (stackbsd/websockify-0.13.0.tar.gz) = 50653
 SHA256 (stackbsd/flit_core-3.12.0.tar.gz) = 18f63100d6f94385c6ed57a72073443e1a71a4acb4339491615d0f16d6ff01b2
 SIZE (stackbsd/flit_core-3.12.0.tar.gz) = 53690
 SHA256 (stackbsd/packaging-26.0.tar.gz) = 00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4

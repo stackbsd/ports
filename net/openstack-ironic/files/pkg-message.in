@@ -1,0 +1,15 @@
+[
+{ type: install
+  message: <<EOM
+Ironic deploys nodes with the ironic-python-agent ramdisk. This port does not
+build one. Fetch the prebuilt images published by the project into the
+conductor's HTTP root and point the nodes, or [conductor] deploy_kernel and
+deploy_ramdisk in %%PREFIX%%/etc/ironic/ironic.conf, at them:
+
+    fetch -o /var/db/ironic/httpboot/ipa.kernel \
+        https://tarballs.opendev.org/openstack/ironic-python-agent/dib/files/ipa-centos9-stable-2026.1.kernel
+    fetch -o /var/db/ironic/httpboot/ipa.initramfs \
+        https://tarballs.opendev.org/openstack/ironic-python-agent/dib/files/ipa-centos9-stable-2026.1.initramfs
+EOM
+}
+]
