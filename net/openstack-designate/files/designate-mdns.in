@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: designate_mdns
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=designate_mdns
+rcvar=designate_mdns_enable
+desc="Designate mini DNS server"
+
+load_rc_config $name
+
+: ${designate_mdns_enable:="NO"}
+: ${designate_mdns_run_user:="designate"}
+: ${designate_mdns_statedir:="/var/db/designate"}
+: ${designate_mdns_pidfile:="/var/run/${name}.pid"}
+: ${designate_mdns_logfile:="/var/log/${name}.log"}
+: ${designate_mdns_stop_timeout:="30"}
+
+pidfile="${designate_mdns_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${designate_mdns_run_user} \
+	-P ${pidfile} -o ${designate_mdns_logfile} \
+	%%PREFIX%%/bin/designate-mdns"
+
+start_precmd="designate_mdns_precmd"
+
+designate_mdns_precmd()
+{
+	/usr/bin/install -d -o "${designate_mdns_run_user}" \
+		-g "${designate_mdns_run_user}" -m 0750 \
+		"${designate_mdns_statedir}" \
+		"${designate_mdns_statedir}/tmp"
+}
+
+stop_cmd="designate_mdns_stop"
+
+designate_mdns_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${designate_mdns_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${designate_mdns_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
+
+run_rc_command "$1"

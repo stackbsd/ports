@@ -1,0 +1,9 @@
+#!/bin/sh
+export GUNICORN_CMD_ARGS="-c python:gunicorn_env_cfg"
+export GUNICORN_WSGI_APP="designate.api.wsgi:init_application()"
+export GUNICORN_CONTROL_SOCKET_DISABLE=True
+export OS_DESIGNATE_CONFIG_DIR="%%PREFIX%%/etc/designate/"
+set -a
+. %%PREFIX%%/etc/designate/designate-wsgi.conf
+set +a
+exec %%VENV%%/bin/gunicorn

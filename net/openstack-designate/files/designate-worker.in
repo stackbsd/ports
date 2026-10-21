@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: designate_worker
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=designate_worker
+rcvar=designate_worker_enable
+desc="Designate worker service"
+
+load_rc_config $name
+
+: ${designate_worker_enable:="NO"}
+: ${designate_worker_run_user:="designate"}
+: ${designate_worker_statedir:="/var/db/designate"}
+: ${designate_worker_pidfile:="/var/run/${name}.pid"}
+: ${designate_worker_logfile:="/var/log/${name}.log"}
+: ${designate_worker_stop_timeout:="30"}
+
+pidfile="${designate_worker_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${designate_worker_run_user} \
+	-P ${pidfile} -o ${designate_worker_logfile} \
+	%%PREFIX%%/bin/designate-worker"
+
+start_precmd="designate_worker_precmd"
+
+designate_worker_precmd()
+{
+	/usr/bin/install -d -o "${designate_worker_run_user}" \
+		-g "${designate_worker_run_user}" -m 0750 \
+		"${designate_worker_statedir}" \
+		"${designate_worker_statedir}/tmp"
+}
+
+stop_cmd="designate_worker_stop"
+
+designate_worker_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${designate_worker_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${designate_worker_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
+
+run_rc_command "$1"

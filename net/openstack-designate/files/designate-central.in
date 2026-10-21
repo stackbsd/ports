@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: designate_central
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=designate_central
+rcvar=designate_central_enable
+desc="Designate central service"
+
+load_rc_config $name
+
+: ${designate_central_enable:="NO"}
+: ${designate_central_run_user:="designate"}
+: ${designate_central_statedir:="/var/db/designate"}
+: ${designate_central_pidfile:="/var/run/${name}.pid"}
+: ${designate_central_logfile:="/var/log/${name}.log"}
+: ${designate_central_stop_timeout:="30"}
+
+pidfile="${designate_central_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${designate_central_run_user} \
+	-P ${pidfile} -o ${designate_central_logfile} \
+	%%PREFIX%%/bin/designate-central"
+
+start_precmd="designate_central_precmd"
+
+designate_central_precmd()
+{
+	/usr/bin/install -d -o "${designate_central_run_user}" \
+		-g "${designate_central_run_user}" -m 0750 \
+		"${designate_central_statedir}" \
+		"${designate_central_statedir}/tmp"
+}
+
+stop_cmd="designate_central_stop"
+
+designate_central_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${designate_central_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${designate_central_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
+
+run_rc_command "$1"

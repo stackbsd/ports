@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: designate_producer
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=designate_producer
+rcvar=designate_producer_enable
+desc="Designate producer service"
+
+load_rc_config $name
+
+: ${designate_producer_enable:="NO"}
+: ${designate_producer_run_user:="designate"}
+: ${designate_producer_statedir:="/var/db/designate"}
+: ${designate_producer_pidfile:="/var/run/${name}.pid"}
+: ${designate_producer_logfile:="/var/log/${name}.log"}
+: ${designate_producer_stop_timeout:="30"}
+
+pidfile="${designate_producer_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${designate_producer_run_user} \
+	-P ${pidfile} -o ${designate_producer_logfile} \
+	%%PREFIX%%/bin/designate-producer"
+
+start_precmd="designate_producer_precmd"
+
+designate_producer_precmd()
+{
+	/usr/bin/install -d -o "${designate_producer_run_user}" \
+		-g "${designate_producer_run_user}" -m 0750 \
+		"${designate_producer_statedir}" \
+		"${designate_producer_statedir}/tmp"
+}
+
+stop_cmd="designate_producer_stop"
+
+designate_producer_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${designate_producer_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${designate_producer_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
+
+run_rc_command "$1"

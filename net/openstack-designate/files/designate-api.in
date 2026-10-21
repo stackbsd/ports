@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: designate_api
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=designate_api
+rcvar=designate_api_enable
+desc="Designate API server"
+
+load_rc_config $name
+
+: ${designate_api_enable:="NO"}
+: ${designate_api_run_user:="designate"}
+: ${designate_api_statedir:="/var/db/designate"}
+: ${designate_api_pidfile:="/var/run/${name}.pid"}
+: ${designate_api_logfile:="/var/log/${name}.log"}
+: ${designate_api_stop_timeout:="30"}
+
+pidfile="${designate_api_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${designate_api_run_user} \
+	-P ${pidfile} -o ${designate_api_logfile} \
+	%%PREFIX%%/bin/designate-api"
+
+start_precmd="designate_api_precmd"
+
+designate_api_precmd()
+{
+	/usr/bin/install -d -o "${designate_api_run_user}" \
+		-g "${designate_api_run_user}" -m 0750 \
+		"${designate_api_statedir}" \
+		"${designate_api_statedir}/tmp"
+}
+
+stop_cmd="designate_api_stop"
+
+designate_api_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${designate_api_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${designate_api_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
+
+run_rc_command "$1"
