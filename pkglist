@@ -1,0 +1,14 @@
+net/cinder-zfs-driver
+net/horizon-theme-daemon
+net/neutron-bsdbridge
+net/nova-bhyve
+net/openstack-cinder
+net/openstack-client
+net/openstack-glance
+net/openstack-horizon
+net/openstack-keystone
+net/openstack-neutron
+net/openstack-nova
+net/openstack-placement
+net/openstack-runtime
+net/os-brick-freebsd
