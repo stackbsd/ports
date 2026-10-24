@@ -23,6 +23,8 @@ python_CMD=	${VENV}/bin/python${PYTHON_VER}
 
 NO_ARCH=	yes
 
+SUB_FILES=	pkg-message
+
 PLIST_SUB=	VENV=libexec/openstack
 
 # the shared venv from net/openstack-runtime
