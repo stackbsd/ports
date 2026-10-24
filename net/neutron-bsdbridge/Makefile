@@ -27,7 +27,7 @@ python_CMD=	${VENV}/bin/python${PYTHON_VER}
 
 NO_ARCH=	yes
 SUB_FILES=	bsdbridge_agent.ini neutron-bsdbridge-dhcp-agent.sh \
-		neutron-bsdbridge-l2-agent.sh neutron-bsdbridge-l3-agent.sh
+		neutron-bsdbridge-l2-agent.sh neutron-bsdbridge-l3-agent.sh pkg-message
 SUB_LIST=	VENV=${VENV}
 
 ETCDIR=		${PREFIX}/etc/neutron
