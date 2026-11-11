@@ -25,6 +25,7 @@ Host prerequisites:
         install -d -m 0750 -o cinder -g cinder /var/db/cinder
         printf 'portal-group "cinder" {\n    discovery-auth-group no-authentication\n    listen 127.0.0.1:3260\n}\n' > /var/db/cinder/ctl.conf
         chown cinder:cinder /var/db/cinder/ctl.conf
+        touch /etc/ctl.conf
         sysrc ctld_flags="-f /var/db/cinder/ctl.conf" ctld_enable=YES
         service ctld start
   - migration to a backend on another host sends zvols over ssh. Give the
