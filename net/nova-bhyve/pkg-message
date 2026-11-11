@@ -31,7 +31,7 @@ Host prerequisites:
             IdentityFile %%PREFIX%%/etc/nova/migrate_key
             UserKnownHostsFile %%PREFIX%%/etc/nova/known_hosts
     On every other compute host the nova-migrate user receives it:
-        zfs allow -u nova-migrate create,destroy,receive zroot/nova
+        zfs allow -u nova-migrate create,destroy,mount,receive zroot/nova
     and pins each sender's key in /var/db/nova-migrate/.ssh/authorized_keys:
         command="nova-bhyve-receive",restrict ssh-ed25519 AAAA... nova@compute1
 EOM

@@ -36,7 +36,7 @@ Host prerequisites:
             IdentityFile %%PREFIX%%/etc/cinder/migrate_key
             UserKnownHostsFile %%PREFIX%%/etc/cinder/known_hosts
     On the receiving host the cinder-migrate user receives it:
-        zfs allow -u cinder-migrate create,destroy,receive,refreservation zroot/cinder
+        zfs allow -u cinder-migrate create,destroy,mount,receive,refreservation zroot/cinder
     and pins each sender's key in /var/db/cinder-migrate/.ssh/authorized_keys:
         command="cinder-zfs-receive",restrict ssh-ed25519 AAAA... cinder@storage1
 EOM
