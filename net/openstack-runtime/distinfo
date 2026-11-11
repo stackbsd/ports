@@ -1,4 +1,4 @@
-TIMESTAMP = 1794434080
+TIMESTAMP = 1794435986
 SHA256 (stackbsd/alembic-1.18.4.tar.gz) = cb6e1fd84b6174ab8dbb2329f86d631ba9559dd78df550b57804d607672cedbc
 SIZE (stackbsd/alembic-1.18.4.tar.gz) = 2056725
 SHA256 (stackbsd/amqp-5.3.1.tar.gz) = cddc00c725449522023bad949f70fff7b48f0b1ade74d170a6f10ab044739432
@@ -223,6 +223,8 @@ SHA256 (stackbsd/python_glanceclient-4.11.0.tar.gz) = 5ce2118bfe7462934805916617
 SIZE (stackbsd/python_glanceclient-4.11.0.tar.gz) = 210930
 SHA256 (stackbsd/python_keystoneclient-5.8.0.tar.gz) = 3ca87c67c404298ce862310b569f545a58acf75cd5685094c82f35320b3a355d
 SIZE (stackbsd/python_keystoneclient-5.8.0.tar.gz) = 322844
+SHA256 (stackbsd/python-memcached-1.62.tar.gz) = 0285470599b7f593fbf3bec084daa1f483221e68c1db2cf1d846a9f7c2655103
+SIZE (stackbsd/python-memcached-1.62.tar.gz) = 28591
 SHA256 (stackbsd/python_neutronclient-11.8.0.tar.gz) = 6ea711eb88fcde47523250ac829cb9b9da8bc0bf2dd0205add4e1c9a4cce0515
 SIZE (stackbsd/python_neutronclient-11.8.0.tar.gz) = 213135
 SHA256 (stackbsd/python_novaclient-18.12.0.tar.gz) = ead3db2a3dd43a89bb5a56f62f87362a76e7ef9c01938699ff6c1a060f0e9eab

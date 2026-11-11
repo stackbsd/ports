@@ -89,6 +89,7 @@
 %%VENV%%/%%PYTHON_SITELIBDIR%%/__pycache__/decorator%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/__pycache__/jsonpatch%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/__pycache__/jsonpointer%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/__pycache__/memcache%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/__pycache__/retrying%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/__pycache__/six%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/__pycache__/typing_extensions%%PYTHON_TAG%%.pyc
@@ -4868,6 +4869,7 @@
 %%VENV%%/%%PYTHON_SITELIBDIR%%/mdurl/_parse.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/mdurl/_url.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/mdurl/py.typed
+%%VENV%%/%%PYTHON_SITELIBDIR%%/memcache.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/microversion_parse-2.1.0.dist-info/INSTALLER
 %%VENV%%/%%PYTHON_SITELIBDIR%%/microversion_parse-2.1.0.dist-info/METADATA
 %%VENV%%/%%PYTHON_SITELIBDIR%%/microversion_parse-2.1.0.dist-info/RECORD
@@ -14713,6 +14715,12 @@
 %%VENV%%/%%PYTHON_SITELIBDIR%%/python_keystoneclient-5.8.0.dist-info/licenses/LICENSE
 %%VENV%%/%%PYTHON_SITELIBDIR%%/python_keystoneclient-5.8.0.dist-info/pbr.json
 %%VENV%%/%%PYTHON_SITELIBDIR%%/python_keystoneclient-5.8.0.dist-info/top_level.txt
+%%VENV%%/%%PYTHON_SITELIBDIR%%/python_memcached-1.62.dist-info/INSTALLER
+%%VENV%%/%%PYTHON_SITELIBDIR%%/python_memcached-1.62.dist-info/METADATA
+%%VENV%%/%%PYTHON_SITELIBDIR%%/python_memcached-1.62.dist-info/RECORD
+%%VENV%%/%%PYTHON_SITELIBDIR%%/python_memcached-1.62.dist-info/REQUESTED
+%%VENV%%/%%PYTHON_SITELIBDIR%%/python_memcached-1.62.dist-info/WHEEL
+%%VENV%%/%%PYTHON_SITELIBDIR%%/python_memcached-1.62.dist-info/top_level.txt
 %%VENV%%/%%PYTHON_SITELIBDIR%%/python_neutronclient-11.8.0.dist-info/INSTALLER
 %%VENV%%/%%PYTHON_SITELIBDIR%%/python_neutronclient-11.8.0.dist-info/METADATA
 %%VENV%%/%%PYTHON_SITELIBDIR%%/python_neutronclient-11.8.0.dist-info/RECORD
