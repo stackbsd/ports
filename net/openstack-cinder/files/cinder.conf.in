@@ -2,6 +2,7 @@
 auth_strategy = keystone
 state_path = /var/db/cinder
 rootwrap_config = %%PREFIX%%/etc/cinder/rootwrap.conf
+resource_query_filters_file = %%PREFIX%%/etc/cinder/resource_filters.json
 
 # transport_url = rabbit://username:password@localhost:5672/
 # my_ip = 127.0.0.1

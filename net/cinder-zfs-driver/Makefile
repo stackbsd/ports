@@ -26,7 +26,7 @@ GROUPS=		cinder
 
 NO_ARCH=	yes
 
-SUB_FILES=	cinder-zfs-receive.sh
+SUB_FILES=	cinder-zfs-receive.sh pkg-message
 SUB_LIST=	VENV=${VENV}
 PLIST_SUB=	VENV=libexec/openstack
 

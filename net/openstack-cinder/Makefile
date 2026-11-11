@@ -49,6 +49,7 @@ post-install:
 	${INSTALL_DATA} ${FILESDIR}/cinder-wsgi.conf ${STAGEDIR}${ETCDIR}/cinder-wsgi.conf.sample
 	${INSTALL_DATA} ${WRKDIR}/rootwrap.conf ${STAGEDIR}${ETCDIR}/rootwrap.conf.sample
 	${INSTALL_DATA} ${STAGEDIR}${VENV}/etc/cinder/api-paste.ini ${STAGEDIR}${ETCDIR}
+	${INSTALL_DATA} ${STAGEDIR}${VENV}/etc/cinder/resource_filters.json ${STAGEDIR}${ETCDIR}
 	${INSTALL_DATA} ${WRKDIR}/sudoers ${STAGEDIR}${PREFIX}/etc/sudoers.d/openstack-cinder
 	${INSTALL_DATA} ${FILESDIR}/cinder-log.conf ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
 

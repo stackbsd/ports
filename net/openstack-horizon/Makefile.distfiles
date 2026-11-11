@@ -1,5 +1,5 @@
 DIST_SUBDIR=	stackbsd
-EXTRACT_ONLY=	
+EXTRACT_ONLY=	horizon-25.7.3.tar.gz
 CLOSURE_DISTFILES=
 BOOTSTRAP_DISTFILES=
 TOOLCHAIN_DISTFILES=
@@ -27,6 +27,7 @@ CLOSURE_DISTFILES+=	django-debreach-2.1.0.tar.gz
 MASTER_SITES+=	https://files.pythonhosted.org/packages/60/e9/eb391c1721240db156c0fc08cff794214a924b58c2b65e448cfe00bd96e2/:horizon
 DISTFILES+=	horizon-25.7.3.tar.gz:horizon
 CLOSURE_DISTFILES+=	horizon-25.7.3.tar.gz
+PATCHED_DISTFILES+=	horizon-25.7.3.tar.gz
 MASTER_SITES+=	https://files.pythonhosted.org/packages/79/b4/ab091585eaa77299558e3289ca206846aefc123fb320b5656ab2542c20ad/:libsass
 DISTFILES+=	libsass-0.23.0.tar.gz:libsass
 CLOSURE_DISTFILES+=	libsass-0.23.0.tar.gz

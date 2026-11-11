@@ -1,5 +1,6 @@
 [DEFAULT]
 enabled_backends = fs:file
+metadata_source_path = %%PREFIX%%/etc/glance/metadefs
 
 [database]
 # connection = mysql+pymysql://glance:GLANCE_DBPASS@localhost/glance

@@ -30,7 +30,7 @@ GROUPS=		nova
 
 NO_ARCH=	yes
 
-SUB_FILES=	nova-bhyve-receive.sh
+SUB_FILES=	nova-bhyve-receive.sh pkg-message
 SUB_LIST=	VENV=${VENV}
 PLIST_SUB=	VENV=libexec/openstack
 

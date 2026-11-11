@@ -1,0 +1,19 @@
+[
+{ type: install
+  message: <<EOM
+Enable the theme in %%PREFIX%%/etc/horizon/local_settings.py:
+
+    from daemon_theme import THEMES
+
+    AVAILABLE_THEMES = THEMES
+    DEFAULT_THEME = "daemon"
+
+Then collect and compress the static tree as root and restart horizon:
+
+    export DJANGO_SETTINGS_MODULE=openstack_dashboard.settings
+    %%PREFIX%%/libexec/openstack/bin/django-admin collectstatic --noinput
+    %%PREFIX%%/libexec/openstack/bin/django-admin compress --force
+    service horizon restart
+EOM
+}
+]
