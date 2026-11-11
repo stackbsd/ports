@@ -38,4 +38,5 @@ bin/nova-bhyve-receive
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/storage/__pycache__/zfs%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/storage/zfs.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/supervisor.py
+@dir(nova-migrate,nova,0755) /var/db/nova-migrate
 @dir(nova-migrate,nova,0770) /var/db/nova-migrate/instances
