@@ -29,7 +29,9 @@ bin/nova-bhyve-receive
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/__init__.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/__pycache__/__init__%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/__pycache__/direct%%PYTHON_TAG%%.pyc
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/__pycache__/fake%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/direct.py
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/machine/fake.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/migration.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/storage/__init__.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/storage/__pycache__/__init__%%PYTHON_TAG%%.pyc
