@@ -1,4 +1,4 @@
-TIMESTAMP = 1789038132
+TIMESTAMP = 1794434080
 SHA256 (stackbsd/alembic-1.18.4.tar.gz) = cb6e1fd84b6174ab8dbb2329f86d631ba9559dd78df550b57804d607672cedbc
 SIZE (stackbsd/alembic-1.18.4.tar.gz) = 2056725
 SHA256 (stackbsd/amqp-5.3.1.tar.gz) = cddc00c725449522023bad949f70fff7b48f0b1ade74d170a6f10ab044739432
@@ -197,6 +197,8 @@ SHA256 (stackbsd/pygments-2.19.2.tar.gz) = 636cb2477cec7f8952536970bc533bc437435
 SIZE (stackbsd/pygments-2.19.2.tar.gz) = 4968631
 SHA256 (stackbsd/pyjwt-2.11.0.tar.gz) = 35f95c1f0fbe5d5ba6e43f00271c275f7a1a4db1dab27bf708073b75318ea623
 SIZE (stackbsd/pyjwt-2.11.0.tar.gz) = 98019
+SHA256 (stackbsd/pymemcache-4.0.0.tar.gz) = 27bf9bd1bbc1e20f83633208620d56de50f14185055e49504f4f5e94e94aff94
+SIZE (stackbsd/pymemcache-4.0.0.tar.gz) = 70176
 SHA256 (stackbsd/pymysql-1.1.2.tar.gz) = 4961d3e165614ae65014e361811a724e2044ad3ea3739de9903ae7c21f539f03
 SIZE (stackbsd/pymysql-1.1.2.tar.gz) = 48258
 SHA256 (stackbsd/pynacl-1.6.2.tar.gz) = 018494d6d696ae03c7e656e5e74cdfd8ea1326962cc401bcf018f1ed8436811c
