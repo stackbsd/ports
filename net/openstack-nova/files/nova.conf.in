@@ -99,3 +99,4 @@ discover_hosts_in_cells_interval = 60
 # [bhyve]
 # zfs_dataset = zroot/nova
 # shutdown_timeout_graceful = 30
+# migration_ssh_config = %%PREFIX%%/etc/nova/ssh_config

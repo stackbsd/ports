@@ -1,0 +1,3 @@
+#!/bin/sh
+exec %%VENV%%/bin/cinder-zfs-receive \
+    --config-file %%PREFIX%%/etc/cinder/cinder.conf "$@"

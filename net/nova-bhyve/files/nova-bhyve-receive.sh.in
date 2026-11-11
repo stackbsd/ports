@@ -1,0 +1,3 @@
+#!/bin/sh
+exec %%VENV%%/bin/nova-bhyve-receive \
+    --config-file %%PREFIX%%/etc/nova/nova.conf "$@"
