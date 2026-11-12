@@ -21,13 +21,14 @@ RUN_DEPENDS=	dnsmasq:dns/dnsmasq \
 USES=		python:3.12 shebangfix
 USE_PYTHON=	noflavors pep517
 USE_RC_SUBR=	neutron-bsdbridge-l2-agent neutron-bsdbridge-dhcp-agent \
-		neutron-bsdbridge-l3-agent
+		neutron-bsdbridge-l3-agent neutron-bsdbridge-vxlan-relay
 SHEBANG_GLOB=	*.py
 python_CMD=	${VENV}/bin/python${PYTHON_VER}
 
 NO_ARCH=	yes
 SUB_FILES=	bsdbridge_agent.ini neutron-bsdbridge-dhcp-agent.sh \
-		neutron-bsdbridge-l2-agent.sh neutron-bsdbridge-l3-agent.sh pkg-message
+		neutron-bsdbridge-l2-agent.sh neutron-bsdbridge-l3-agent.sh \
+		neutron-bsdbridge-vxlan-relay.sh pkg-message
 SUB_LIST=	VENV=${VENV}
 
 ETCDIR=		${PREFIX}/etc/neutron
@@ -46,6 +47,7 @@ post-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/neutron-bsdbridge-dhcp-agent.sh ${STAGEDIR}${PREFIX}/bin/neutron-bsdbridge-dhcp-agent
 	${INSTALL_SCRIPT} ${WRKDIR}/neutron-bsdbridge-l2-agent.sh ${STAGEDIR}${PREFIX}/bin/neutron-bsdbridge-l2-agent
 	${INSTALL_SCRIPT} ${WRKDIR}/neutron-bsdbridge-l3-agent.sh ${STAGEDIR}${PREFIX}/bin/neutron-bsdbridge-l3-agent
+	${INSTALL_SCRIPT} ${WRKDIR}/neutron-bsdbridge-vxlan-relay.sh ${STAGEDIR}${PREFIX}/bin/neutron-bsdbridge-vxlan-relay
 	@${MKDIR} ${STAGEDIR}${ETCDIR} ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
 	${INSTALL_DATA} ${WRKDIR}/bsdbridge_agent.ini ${STAGEDIR}${ETCDIR}/bsdbridge_agent.ini.sample
 	${INSTALL_DATA} ${FILESDIR}/neutron-bsdbridge-log.conf ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
