@@ -1,0 +1,22 @@
+[
+{ type: install
+  message: <<EOM
+Add the BGP service plugin in %%PREFIX%%/etc/neutron/neutron.conf:
+
+    [DEFAULT]
+    service_plugins = router,bgp
+
+Create the database tables and restart the Neutron servers:
+
+    neutron-db-manage --subproject neutron-dynamic-routing upgrade head
+    service neutron-api restart
+    service neutron-rpc-server restart
+
+Set bgp_router_id in %%PREFIX%%/etc/neutron/bgp_dragent.ini on each
+host that runs a speaker, then enable the agent:
+
+    sysrc neutron_bgp_dragent_enable=YES
+    service neutron-bgp-dragent start
+EOM
+}
+]

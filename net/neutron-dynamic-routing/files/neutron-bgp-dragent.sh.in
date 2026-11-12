@@ -1,0 +1,4 @@
+#!/bin/sh
+exec %%VENV%%/bin/neutron-bgp-dragent \
+    --config-file %%PREFIX%%/etc/neutron/neutron.conf \
+    --config-file %%PREFIX%%/etc/neutron/bgp_dragent.ini "$@"

@@ -1,6 +1,7 @@
 net/cinder-zfs-driver
 net/horizon-theme-daemon
 net/neutron-bsdbridge
+net/neutron-dynamic-routing
 net/nova-bhyve
 net/openstack-cinder
 net/openstack-client
