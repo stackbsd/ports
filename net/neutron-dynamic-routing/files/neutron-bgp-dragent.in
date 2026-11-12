@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# PROVIDE: neutron_bgp_dragent
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=neutron_bgp_dragent
+rcvar=neutron_bgp_dragent_enable
+desc="Neutron BGP dynamic routing agent"
+
+load_rc_config $name
+
+: ${neutron_bgp_dragent_enable:="NO"}
+: ${neutron_bgp_dragent_run_user:="neutron"}
+: ${neutron_bgp_dragent_statedir:="/var/db/neutron"}
+: ${neutron_bgp_dragent_pidfile:="/var/run/${name}.pid"}
+: ${neutron_bgp_dragent_logfile:="/var/log/${name}.log"}
+: ${neutron_bgp_dragent_stop_timeout:="30"}
+
+pidfile="${neutron_bgp_dragent_pidfile}"
+command="/usr/sbin/daemon"
+
+command_args="-c -r -H -t ${name} -u ${neutron_bgp_dragent_run_user} \
+	-P ${pidfile} -o ${neutron_bgp_dragent_logfile} \
+	%%PREFIX%%/bin/neutron-bgp-dragent"
+
+start_precmd="neutron_bgp_dragent_precmd"
+
+neutron_bgp_dragent_precmd()
+{
+	/usr/bin/install -d -o "${neutron_bgp_dragent_run_user}" \
+		-g "${neutron_bgp_dragent_run_user}" -m 0750 \
+		"${neutron_bgp_dragent_statedir}" \
+		"${neutron_bgp_dragent_statedir}/tmp"
+}
+
+stop_cmd="neutron_bgp_dragent_stop"
+
+neutron_bgp_dragent_stop()
+{
+	local child
+	child=$(pgrep -P ${rc_pid})
+	echo "Stopping ${name}."
+	kill -TERM ${rc_pid}
+	pwait -t ${neutron_bgp_dragent_stop_timeout} ${rc_pid} 2> /dev/null && return 0
+	echo "${name} did not exit in ${neutron_bgp_dragent_stop_timeout}s, killing it."
+	kill -KILL -- -${rc_pid} -${child} 2> /dev/null
+	rm -f ${pidfile}
+}
+
+run_rc_command "$1"

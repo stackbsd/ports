@@ -1,0 +1,2 @@
+neutron-dynamic-routing adds BGP speakers to OpenStack Neutron that
+announce tenant network prefixes and floating IPs to upstream routers.
