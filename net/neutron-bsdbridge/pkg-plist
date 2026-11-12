@@ -1,11 +1,13 @@
 bin/neutron-bsdbridge-dhcp-agent
 bin/neutron-bsdbridge-l2-agent
 bin/neutron-bsdbridge-l3-agent
+bin/neutron-bsdbridge-vxlan-relay
 @sample(root,neutron,0640) etc/neutron/bsdbridge_agent.ini.sample
 etc/newsyslog.conf.d/neutron-bsdbridge-log.conf
 %%VENV%%/bin/neutron-bsdbridge-dhcp-agent
 %%VENV%%/bin/neutron-bsdbridge-l2-agent
 %%VENV%%/bin/neutron-bsdbridge-l3-agent
+%%VENV%%/bin/neutron-bsdbridge-vxlan-relay
 %%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.5.dist-info/METADATA
 %%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.5.dist-info/RECORD
 %%VENV%%/%%PYTHON_SITELIBDIR%%/neutron_bsdbridge-0.9.5.dist-info/WHEEL

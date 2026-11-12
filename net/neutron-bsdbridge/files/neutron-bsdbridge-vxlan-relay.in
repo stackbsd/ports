@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# PROVIDE: neutron_bsdbridge_vxlan_relay
+# REQUIRE: NETWORKING FILESYSTEMS
+# BEFORE: neutron_bsdbridge_l2_agent
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=neutron_bsdbridge_vxlan_relay
+rcvar=neutron_bsdbridge_vxlan_relay_enable
+desc="neutron-bsdbridge vxlan relay"
+
+load_rc_config $name
+
+: ${neutron_bsdbridge_vxlan_relay_enable:="NO"}
+: ${neutron_bsdbridge_vxlan_relay_runas:="neutron"}
+: ${neutron_bsdbridge_vxlan_relay_pidfile:="/var/run/${name}.pid"}
+: ${neutron_bsdbridge_vxlan_relay_logfile:="/var/log/${name}.log"}
+
+rundir="/var/run/neutron-bsdbridge-vxlan-relay"
+pidfile="${neutron_bsdbridge_vxlan_relay_pidfile}"
+command="/usr/sbin/daemon"
+command_args="-c -r -H -t ${name} -u ${neutron_bsdbridge_vxlan_relay_runas} \
+	-P ${pidfile} -o ${neutron_bsdbridge_vxlan_relay_logfile} \
+	%%PREFIX%%/bin/neutron-bsdbridge-vxlan-relay"
+
+start_precmd="neutron_bsdbridge_vxlan_relay_prestart"
+
+neutron_bsdbridge_vxlan_relay_prestart()
+{
+	install -d -o ${neutron_bsdbridge_vxlan_relay_runas} -m 0750 ${rundir}
+}
+
+run_rc_command "$1"
