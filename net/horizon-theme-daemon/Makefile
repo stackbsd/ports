@@ -25,7 +25,7 @@ NO_ARCH=	yes
 
 SUB_FILES=	pkg-message
 
-PLIST_SUB=	VENV=libexec/openstack
+PLIST_SUB=	DISTVERSION=${DISTVERSION} VENV=libexec/openstack
 
 # the shared venv from net/openstack-runtime
 VENV=		${PREFIX}/libexec/openstack

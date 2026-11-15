@@ -21,7 +21,7 @@ python_CMD=	${VENV}/bin/python${PYTHON_VER}
 
 NO_ARCH=	yes
 
-PLIST_SUB=	VENV=libexec/openstack
+PLIST_SUB=	DISTVERSION=${DISTVERSION} VENV=libexec/openstack
 
 # the shared venv from net/openstack-runtime
 VENV=		${PREFIX}/libexec/openstack

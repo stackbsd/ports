@@ -6,10 +6,10 @@ bin/nova-bhyve-receive
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/__pycache__/privsep%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/driver.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova/virt/bhyve/privsep.py
-%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.4.dist-info/METADATA
-%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.4.dist-info/RECORD
-%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.4.dist-info/WHEEL
-%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-0.9.4.dist-info/entry_points.txt
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-%%DISTVERSION%%.dist-info/METADATA
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-%%DISTVERSION%%.dist-info/RECORD
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-%%DISTVERSION%%.dist-info/WHEEL
+%%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve-%%DISTVERSION%%.dist-info/entry_points.txt
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__init__.py
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/__init__%%PYTHON_TAG%%.pyc
 %%VENV%%/%%PYTHON_SITELIBDIR%%/nova_bhyve/__pycache__/conf%%PYTHON_TAG%%.pyc

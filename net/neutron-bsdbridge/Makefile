@@ -31,7 +31,7 @@ SUB_FILES=	bsdbridge_agent.ini neutron-bsdbridge-dhcp-agent.sh \
 SUB_LIST=	VENV=${VENV}
 
 ETCDIR=		${PREFIX}/etc/neutron
-PLIST_SUB=	VENV=libexec/openstack
+PLIST_SUB=	DISTVERSION=${DISTVERSION} VENV=libexec/openstack
 
 # the shared venv from net/openstack-runtime
 VENV=		${PREFIX}/libexec/openstack

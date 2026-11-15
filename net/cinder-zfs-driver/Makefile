@@ -28,7 +28,7 @@ NO_ARCH=	yes
 
 SUB_FILES=	cinder-zfs-receive.sh pkg-message
 SUB_LIST=	VENV=${VENV}
-PLIST_SUB=	VENV=libexec/openstack
+PLIST_SUB=	DISTVERSION=${DISTVERSION} VENV=libexec/openstack
 
 # the shared venv from net/openstack-runtime
 VENV=		${PREFIX}/libexec/openstack

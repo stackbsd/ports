@@ -144,6 +144,6 @@
 %%VENV%%/%%PYTHON_SITELIBDIR%%/daemon_theme/theme/templates/horizon/common/_usage_summary.html
 %%VENV%%/%%PYTHON_SITELIBDIR%%/daemon_theme/theme/templates/identity/projects/usage.html
 %%VENV%%/%%PYTHON_SITELIBDIR%%/daemon_theme/theme/templates/project/overview/usage.html
-%%VENV%%/%%PYTHON_SITELIBDIR%%/horizon_theme_daemon-0.9.0.dist-info/METADATA
-%%VENV%%/%%PYTHON_SITELIBDIR%%/horizon_theme_daemon-0.9.0.dist-info/RECORD
-%%VENV%%/%%PYTHON_SITELIBDIR%%/horizon_theme_daemon-0.9.0.dist-info/WHEEL
+%%VENV%%/%%PYTHON_SITELIBDIR%%/horizon_theme_daemon-%%DISTVERSION%%.dist-info/METADATA
+%%VENV%%/%%PYTHON_SITELIBDIR%%/horizon_theme_daemon-%%DISTVERSION%%.dist-info/RECORD
+%%VENV%%/%%PYTHON_SITELIBDIR%%/horizon_theme_daemon-%%DISTVERSION%%.dist-info/WHEEL
