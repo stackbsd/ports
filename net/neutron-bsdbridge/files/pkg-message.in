@@ -13,6 +13,10 @@ Map physical networks to trunk interfaces in
     sysrc neutron_bsdbridge_dhcp_agent_enable=YES
     sysrc neutron_bsdbridge_l3_agent_enable=YES
 
+vxlan networks also need the relay on every host running the L2 agent:
+
+    sysrc neutron_bsdbridge_vxlan_relay_enable=YES
+
 The L3 agent needs the router service plugin in
 %%PREFIX%%/etc/neutron/neutron.conf:
 
