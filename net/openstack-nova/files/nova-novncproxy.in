@@ -23,7 +23,7 @@ nova_novncproxy_env="EVENTLET_HUB=poll ${nova_novncproxy_env}"
 
 pidfile="${nova_novncproxy_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${nova_novncproxy_run_user} \
+command_args="-c -f -r -H -t ${name} -u ${nova_novncproxy_run_user} \
 	-P ${pidfile} -o ${nova_novncproxy_logfile} \
 	%%PREFIX%%/bin/nova-novncproxy --web ${nova_novncproxy_web}"
 

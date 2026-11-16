@@ -21,7 +21,7 @@ load_rc_config $name
 pidfile="${neutron_bsdbridge_l2_agent_pidfile}"
 command="/usr/sbin/daemon"
 # runs as root because it creates bridges and taps and loads pf anchors
-command_args="-c -r -H -t ${name} \
+command_args="-c -f -r -H -t ${name} \
 	-P ${pidfile} -o ${neutron_bsdbridge_l2_agent_logfile} \
 	%%PREFIX%%/bin/neutron-bsdbridge-l2-agent"
 

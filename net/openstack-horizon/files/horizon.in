@@ -21,7 +21,7 @@ load_rc_config $name
 
 pidfile="${horizon_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${horizon_run_user} \
+command_args="-c -f -r -H -t ${name} -u ${horizon_run_user} \
 	-P ${pidfile} -o ${horizon_logfile} \
 	%%PREFIX%%/bin/horizon"
 

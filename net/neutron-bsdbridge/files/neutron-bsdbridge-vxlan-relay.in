@@ -21,7 +21,7 @@ load_rc_config $name
 rundir="/var/run/neutron-bsdbridge-vxlan-relay"
 pidfile="${neutron_bsdbridge_vxlan_relay_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${neutron_bsdbridge_vxlan_relay_runas} \
+command_args="-c -f -r -H -t ${name} -u ${neutron_bsdbridge_vxlan_relay_runas} \
 	-P ${pidfile} -o ${neutron_bsdbridge_vxlan_relay_logfile} \
 	%%PREFIX%%/bin/neutron-bsdbridge-vxlan-relay"
 

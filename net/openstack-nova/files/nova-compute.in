@@ -21,7 +21,7 @@ load_rc_config $name
 
 pidfile="${nova_compute_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${nova_compute_run_user} \
+command_args="-c -f -r -H -t ${name} -u ${nova_compute_run_user} \
 	-P ${pidfile} -o ${nova_compute_logfile} \
 	%%PREFIX%%/bin/nova-compute"
 
