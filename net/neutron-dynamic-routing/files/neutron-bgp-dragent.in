@@ -22,7 +22,7 @@ load_rc_config $name
 pidfile="${neutron_bgp_dragent_pidfile}"
 command="/usr/sbin/daemon"
 
-command_args="-c -r -H -t ${name} -u ${neutron_bgp_dragent_run_user} \
+command_args="-c -f -r -H -t ${name} -u ${neutron_bgp_dragent_run_user} \
 	-P ${pidfile} -o ${neutron_bgp_dragent_logfile} \
 	%%PREFIX%%/bin/neutron-bgp-dragent"
 

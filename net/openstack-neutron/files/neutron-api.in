@@ -21,7 +21,7 @@ load_rc_config $name
 
 pidfile="${neutron_api_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${neutron_api_run_user} \
+command_args="-c -f -r -H -t ${name} -u ${neutron_api_run_user} \
 	-P ${pidfile} -o ${neutron_api_logfile} \
 	%%PREFIX%%/bin/neutron-api"
 

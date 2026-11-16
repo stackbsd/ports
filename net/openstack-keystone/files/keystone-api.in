@@ -20,7 +20,7 @@ load_rc_config $name
 
 pidfile="${keystone_api_pidfile}"
 command="/usr/sbin/daemon"
-command_args="-c -r -H -t ${name} -u ${keystone_api_run_user} \
+command_args="-c -f -r -H -t ${name} -u ${keystone_api_run_user} \
 	-P ${pidfile} -o ${keystone_api_logfile} \
 	%%PREFIX%%/bin/keystone-api"
 

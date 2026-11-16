@@ -22,7 +22,7 @@ load_rc_config $name
 pidfile="${neutron_rpc_server_pidfile}"
 command="/usr/sbin/daemon"
 
-command_args="-c -r -H -t ${name} -u ${neutron_rpc_server_run_user} \
+command_args="-c -f -r -H -t ${name} -u ${neutron_rpc_server_run_user} \
 	-P ${pidfile} -o ${neutron_rpc_server_logfile} \
 	%%PREFIX%%/bin/neutron-rpc-server \
 	--config-file %%PREFIX%%/etc/neutron/plugins/ml2/ml2_conf.ini"
