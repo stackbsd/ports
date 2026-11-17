@@ -1,5 +1,6 @@
 bin/glance-api
 bin/glance-manage
+bin/glance-rootwrap
 bin/glance-status
 @sample(root,glance,0640) etc/glance/glance-api.conf.sample
 @sample(root,glance,0640) etc/glance/glance-wsgi.conf.sample
@@ -38,7 +39,9 @@ etc/glance/metadefs/software-databases.json
 etc/glance/metadefs/software-runtimes.json
 etc/glance/metadefs/software-webservers.json
 etc/glance/metadefs/storage-volume-type.json
+@sample(root,glance,0640) etc/glance/rootwrap.conf.sample
 etc/newsyslog.conf.d/glance-log.conf
+@(root,wheel,0440) etc/sudoers.d/openstack-glance
 %%VENV%%/bin/glance-api
 %%VENV%%/bin/glance-cache-cleaner
 %%VENV%%/bin/glance-cache-manage
