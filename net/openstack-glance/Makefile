@@ -13,12 +13,14 @@ BUILD_DEPENDS=	openstack-runtime>=2026.1.0:net/openstack-runtime
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR} \
 		openstack-runtime>=2026.1.0:net/openstack-runtime \
-		qemu-img:emulators/qemu@tools
+		qemu-img:emulators/qemu@tools \
+		sudo:security/sudo
 
 USE_RC_SUBR=	glance-api
 
 NO_ARCH=	yes
-SUB_FILES=	glance-api.conf glance-api.sh glance-manage.sh glance-status.sh
+SUB_FILES=	glance-api.conf glance-api.sh glance-manage.sh \
+		glance-rootwrap.sh glance-status.sh rootwrap.conf sudoers
 SUB_LIST=	VENV=${VENV}
 
 USERS=		glance
@@ -38,12 +40,16 @@ do-install:
 post-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/glance-api.sh ${STAGEDIR}${PREFIX}/bin/glance-api
 	${INSTALL_SCRIPT} ${WRKDIR}/glance-manage.sh ${STAGEDIR}${PREFIX}/bin/glance-manage
+	${INSTALL_SCRIPT} ${WRKDIR}/glance-rootwrap.sh ${STAGEDIR}${PREFIX}/bin/glance-rootwrap
 	${INSTALL_SCRIPT} ${WRKDIR}/glance-status.sh ${STAGEDIR}${PREFIX}/bin/glance-status
-	@${MKDIR} ${STAGEDIR}${ETCDIR}/metadefs ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
+	@${MKDIR} ${STAGEDIR}${ETCDIR}/metadefs ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d \
+		${STAGEDIR}${PREFIX}/etc/sudoers.d
 	${INSTALL_DATA} ${WRKDIR}/glance-api.conf ${STAGEDIR}${ETCDIR}/glance-api.conf.sample
 	${INSTALL_DATA} ${FILESDIR}/glance-wsgi.conf ${STAGEDIR}${ETCDIR}/glance-wsgi.conf.sample
+	${INSTALL_DATA} ${WRKDIR}/rootwrap.conf ${STAGEDIR}${ETCDIR}/rootwrap.conf.sample
 	${INSTALL_DATA} ${STAGEDIR}${VENV}/etc/glance/glance-api-paste.ini ${STAGEDIR}${ETCDIR}
 	${INSTALL_DATA} ${STAGEDIR}${VENV}/etc/glance/metadefs/* ${STAGEDIR}${ETCDIR}/metadefs
+	${INSTALL_DATA} ${WRKDIR}/sudoers ${STAGEDIR}${PREFIX}/etc/sudoers.d/openstack-glance
 	${INSTALL_DATA} ${FILESDIR}/glance-log.conf ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
 
 .include <bsd.port.mk>

@@ -1,0 +1,3 @@
+glance ALL = (root) NOPASSWD: %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/glance/glance-api.conf --privsep_context os_brick.privileged.default --privsep_sock_path /tmp/*/privsep.sock
+glance ALL = (root) NOPASSWD: %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/glance/glance-api.conf --privsep_context os_brick.privileged.brick_privsep_hide_output --privsep_sock_path /tmp/*/privsep.sock
+glance ALL = (root) NOPASSWD: %%PREFIX%%/bin/glance-rootwrap %%PREFIX%%/etc/glance/rootwrap.conf *

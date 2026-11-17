@@ -32,3 +32,6 @@ flavor = keystone
 # project_name = service
 # username = glance
 # password = GLANCE_PASS
+
+[privsep_osbrick]
+helper_command = sudo %%VENV%%/bin/privsep-helper --config-file %%PREFIX%%/etc/glance/glance-api.conf
