@@ -1,0 +1,3 @@
+#!/bin/sh
+exec %%VENV%%/bin/designate-worker \
+    --config-file %%PREFIX%%/etc/designate/designate.conf "$@"

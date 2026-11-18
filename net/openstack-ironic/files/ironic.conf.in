@@ -1,0 +1,54 @@
+[DEFAULT]
+auth_strategy = keystone
+state_path = /var/db/ironic
+tempdir = /var/db/ironic/tmp
+enabled_hardware_types = ipmi,redfish
+enabled_management_interfaces = ipmitool,redfish
+enabled_power_interfaces = ipmitool,redfish
+
+# transport_url = rabbit://username:password@localhost:5672/
+# my_ip = 127.0.0.1
+
+[database]
+# connection = mysql+pymysql://ironic:IRONIC_DBPASS@localhost/ironic
+# connection = mysql+pymysql://ironic@/ironic?unix_socket=/var/run/mysql/mysql.sock
+
+[oslo_messaging_rabbit]
+amqp_durable_queues = true
+rabbit_quorum_queue = true
+rabbit_transient_quorum_queue = true
+
+[oslo_concurrency]
+lock_path = /var/db/ironic/tmp
+
+[keystone_authtoken]
+# www_authenticate_uri = http://localhost:5000/v3
+# auth_url = http://localhost:5000/v3
+# memcached_servers = localhost:11211
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = ironic
+# password = IRONIC_PASS
+
+[service_catalog]
+# auth_url = http://localhost:5000/v3
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = ironic
+# password = IRONIC_PASS
+
+[conductor]
+# deploy_kernel = file:///var/db/ironic/httpboot/ipa.kernel
+# deploy_ramdisk = file:///var/db/ironic/httpboot/ipa.initramfs
+
+[pxe]
+tftp_root = /var/db/ironic/tftpboot
+# tftp_server = 127.0.0.1
+
+[deploy]
+http_root = /var/db/ironic/httpboot
+# http_url = http://127.0.0.1:8080

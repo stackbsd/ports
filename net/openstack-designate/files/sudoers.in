@@ -1,0 +1,1 @@
+designate ALL = (root) NOPASSWD: %%PREFIX%%/bin/designate-rootwrap %%PREFIX%%/etc/designate/rootwrap.conf *

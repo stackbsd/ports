@@ -1,0 +1,45 @@
+[DEFAULT]
+state_path = /var/db/designate
+root_helper = sudo %%PREFIX%%/bin/designate-rootwrap %%PREFIX%%/etc/designate/rootwrap.conf
+
+# transport_url = rabbit://username:password@localhost:5672/
+
+[storage:sqlalchemy]
+# connection = mysql+pymysql://designate:DESIGNATE_DBPASS@localhost/designate
+# connection = mysql+pymysql://designate@/designate?unix_socket=/var/run/mysql/mysql.sock
+
+[oslo_messaging_rabbit]
+amqp_durable_queues = true
+rabbit_quorum_queue = true
+rabbit_transient_quorum_queue = true
+
+[oslo_concurrency]
+lock_path = /var/db/designate/tmp
+
+[keystone_authtoken]
+# www_authenticate_uri = http://localhost:5000/v3
+# auth_url = http://localhost:5000/v3
+# memcached_servers = localhost:11211
+# auth_type = password
+# project_domain_name = Default
+# user_domain_name = Default
+# project_name = service
+# username = designate
+# password = DESIGNATE_PASS
+
+[service:api]
+auth_strategy = keystone
+# api_base_uri = http://localhost:9001/
+
+[service:central]
+workers = 1
+
+[service:mdns]
+workers = 1
+listen = 0.0.0.0:5354
+
+[service:producer]
+workers = 1
+
+[service:worker]
+workers = 1

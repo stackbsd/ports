@@ -5,8 +5,10 @@ net/neutron-dynamic-routing
 net/nova-bhyve
 net/openstack-cinder
 net/openstack-client
+net/openstack-designate
 net/openstack-glance
 net/openstack-horizon
+net/openstack-ironic
 net/openstack-keystone
 net/openstack-neutron
 net/openstack-nova
