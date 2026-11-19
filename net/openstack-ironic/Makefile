@@ -37,6 +37,8 @@ do-install:
 		${WHEELDIR}/*.whl
 
 post-install:
+	# the vnc container image is built for linux
+	${RM} -r ${STAGEDIR}${VENV}/share/ironic
 	${INSTALL_SCRIPT} ${WRKDIR}/ironic-api.sh ${STAGEDIR}${PREFIX}/bin/ironic-api
 	${INSTALL_SCRIPT} ${WRKDIR}/ironic-conductor.sh ${STAGEDIR}${PREFIX}/bin/ironic-conductor
 	${INSTALL_SCRIPT} ${WRKDIR}/ironic-dbsync.sh ${STAGEDIR}${PREFIX}/bin/ironic-dbsync
