@@ -6,21 +6,9 @@ TOOLCHAIN_DISTFILES=
 PATCHED_DISTFILES=
 CRATES_DISTFILES=
 
-MASTER_SITES+=	https://files.pythonhosted.org/packages/e1/db/870e5d5fb311b0bcf049630b5ba3abca2d339fd5e13ba175b4c13b456d08/:jwcrypto
-DISTFILES+=	jwcrypto-1.5.6.tar.gz:jwcrypto
-CLOSURE_DISTFILES+=	jwcrypto-1.5.6.tar.gz
 MASTER_SITES+=	https://files.pythonhosted.org/packages/cc/81/44d05e389bd907cd1a173a404a217ef43ea503e7c00a2c87a56972534bb4/:nova
 DISTFILES+=	nova-33.0.2.tar.gz:nova
 CLOSURE_DISTFILES+=	nova-33.0.2.tar.gz
-MASTER_SITES+=	https://files.pythonhosted.org/packages/76/21/7d2a95e4bba9dc13d043ee156a356c0a8f0c6309dff6b21b4d71a073b8a8/:numpy
-DISTFILES+=	numpy-2.2.6.tar.gz:numpy
-CLOSURE_DISTFILES+=	numpy-2.2.6.tar.gz
-MASTER_SITES+=	https://files.pythonhosted.org/packages/9f/32/6fac13a11e73e1bc67a2ae821a72bfe4c2d8c4c48f0267e4a952be0f1bae/:redis
-DISTFILES+=	redis-7.2.0.tar.gz:redis
-CLOSURE_DISTFILES+=	redis-7.2.0.tar.gz
-MASTER_SITES+=	https://files.pythonhosted.org/packages/f7/9e/fa7b6322fe22a02cf34256cbe300a9468533038b1262c7960119a787b595/:websockify
-DISTFILES+=	websockify-0.13.0.tar.gz:websockify
-CLOSURE_DISTFILES+=	websockify-0.13.0.tar.gz
 
 MASTER_SITES+=	https://files.pythonhosted.org/packages/69/59/b6fc2188dfc7ea4f936cd12b49d707f66a1cb7a1d2c16172963534db741b/:flit_core
 DISTFILES+=	flit_core-3.12.0.tar.gz:flit_core

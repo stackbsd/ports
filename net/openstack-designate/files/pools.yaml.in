@@ -1,0 +1,29 @@
+- name: default
+  description: Default BIND9 pool
+  attributes: {}
+
+  # the NS records published for zones in this pool
+  ns_records:
+    - hostname: ns1.example.org.
+      priority: 1
+
+  # the nameservers polled to verify that changes have propagated
+  nameservers:
+    - host: 127.0.0.1
+      port: 53
+
+  targets:
+    - type: bind9
+      description: BIND9 server
+
+      # the designate-mdns servers BIND transfers zones from
+      masters:
+        - host: 127.0.0.1
+          port: 5354
+
+      options:
+        host: 127.0.0.1
+        port: 53
+        rndc_host: 127.0.0.1
+        rndc_port: 953
+        rndc_key_file: %%PREFIX%%/etc/namedb/rndc.key

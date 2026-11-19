@@ -11,8 +11,6 @@ LICENSE=	APACHE20
 
 BUILD_DEPENDS=	openstack-runtime>=2026.1.0:net/openstack-runtime
 
-LIB_DEPENDS=	libopenblas.so:math/openblas
-
 RUN_DEPENDS=	novnc>0:www/novnc \
 		openstack-runtime>=2026.1.0:net/openstack-runtime \
 		sudo:security/sudo \
@@ -21,6 +19,7 @@ RUN_DEPENDS=	novnc>0:www/novnc \
 USE_RC_SUBR=	nova-api nova-scheduler nova-conductor nova-compute \
 		nova-novncproxy
 
+NO_ARCH=	yes
 SUB_FILES=	nova-api.sh nova-compute.sh nova-conductor.sh nova-manage.sh \
 		nova-novncproxy.sh nova-rootwrap.sh nova-scheduler.sh \
 		nova-status.sh nova.conf pkg-message rootwrap.conf sudoers

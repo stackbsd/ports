@@ -1,0 +1,3 @@
+OpenStack DNS (Designate) provides DNS as a service.  It offers a REST API for
+managing zones and records, and pushes them to backend nameservers such as BIND
+through its own mini DNS server.
